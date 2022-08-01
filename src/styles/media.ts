@@ -7,8 +7,8 @@ type MediaQueryProps = {
 };
 
 const sizes: MediaQueryProps = {
-  mobile: 600,
-  tablet: 940,
+  mobile: 540,
+  tablet: 1000,
   desktop: 1284,
 };
 
