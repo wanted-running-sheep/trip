@@ -7,9 +7,11 @@ const ConfirmLayout = () => {
   return (
     <>
       <Header>
-        <Logo onClick={() => navigate('/')} />
-        <h2>예약 확인</h2>
-        <ConfirmLink onClick={() => navigate('/')}>돌아가기</ConfirmLink>
+        <HeaderInner>
+          <Logo onClick={() => navigate('/')} />
+          <h2>예약 확인</h2>
+          <ConfirmLink onClick={() => navigate('/')}>돌아가기</ConfirmLink>
+        </HeaderInner>
       </Header>
       <Main>
         <Outlet />
@@ -24,26 +26,27 @@ const Header = styled.header`
   width: 100%;
   max-width: 976px;
   height: 80px;
-  line-height: 80px;
   margin: 0 auto;
-  margin-bottom: 30px;
-  ${({ theme }) => theme.mixins.flexBox('center', 'space-between')};
-  h2 {
-    font-size: 24px;
-    font-weight: bold;
-  }
+  margin-bottom: 20px;
 
   ${({ theme }) => theme.media.tablet`
 		width: 480px;
 	`}
   ${({ theme }) => theme.media.mobile`
-		padding: 0 30px;
 		width: 100%;
-    margin-bottom: 20px;
-		div, h2 {
-			flex-shrink: 0;
-		}
+    height: 60px;
 	`}
+`;
+
+const HeaderInner = styled.div`
+  width: 100%;
+  height: 100%;
+  ${({ theme }) => theme.mixins.flexBox('center', 'space-between')};
+  padding: 0 30px;
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
 `;
 
 const imgUrl =
@@ -69,13 +72,13 @@ const ConfirmLink = styled.div`
 const Main = styled.main`
   width: 100%;
   max-width: 976px;
-  height: calc(100% - 80px);
+  height: calc(100% - 100px);
   margin: 0 auto;
   ${({ theme }) => theme.media.tablet`
 		width: 480px;
 	`}
   ${({ theme }) => theme.media.mobile`
-		padding: 0 30px;
 		width: 100%;
+    height: calc(100% - 80px);
 	`}
 `;
