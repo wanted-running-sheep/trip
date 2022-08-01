@@ -1,46 +1,146 @@
-# Getting Started with Create React App
+# 🎬 프리온보딩 6차 과제 - 호텔 예약 사이트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. [프로젝트 소개](#1-프로젝트-소개)
+2. [구현 기능](#2-구현-기능)
+3. [프로젝트 구조](#3-프로젝트-구조)
+4. [역할](#4-역할)
+5. [프로젝트 제작 과정](#5-프로젝트-제작-과정)
+6. [프로젝트 설치 및 실행](#6-프로젝트-설치-및-실행)
 
-## Available Scripts
+<br/>
 
-In the project directory, you can run:
+<!-- 배포 후 수정
+<br /> -->
 
-### `npm start`
+## 1. 프로젝트 소개
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 개요: 원티드 프리온보딩 5기 5번째 팀 과제
+- 주제: Schedule - 수업 일정 관리 페이지 개발
+- 기간: 2022.07.28 ~ 2022.07.30
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<br />
 
-### `npm test`
+## 2. 구현 기능
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔥 과제 요구 기능
 
-### `npm run build`
+** 아아 **
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [x]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 3. 프로젝트 구조
 
-### `npm run eject`
+```
+📁frontend
+├── 📁 src
+├──────── api
+│   │    ├── http
+│   │    ├── instance
+│   │    └── models
+├──────── assets/css
+├──────── @components
+│   │     ├── @common
+│   │     │   ├── Button
+│   │     ├── TimePicker
+│   │     ├── AMPMRadio
+│   │     ├── Button
+│   │     ├── Layout
+│   │     ├── TimneBlock
+│──────── constants
+│   │     ├── index
+│   │     ├── message
+├──────── pages
+│   │     ├── ScheduleAddPage
+│   │     ├── SchedulePage
+│   │     ├── index
+├──────── routes
+│   │     ├── index
+├──────── styles
+│   │     ├── animation
+│   │     ├── globalStyles
+│   │     ├── media
+│   │     ├── mixins
+│   │     ├── theme
+├──────── types
+│   │     ├── api
+│   │     ├── enum
+│   │     ├── style
+├──────── utils
+│   │     ├── formatTime
+│   │     ├── pad2Digit
+│   │     ├── periods
+│   │     ├── weekDays
+├── App.tsx
+└── index.tsx
+📁 backend
+├──────── database
+│         ├── db.json
+│         └── dbController.js
+├──────── routes
+│         ├── schedule
+├── index.js
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<br />
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 4. 역할
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+| 성함                                     | 담당 역할                                   |
+| ---------------------------------------- | ------------------------------------------- |
+| [양아름](https://github.com/areumsheep)  | 개인 과제 진행, QA, 버그 수정, 반응형 추가  |
+| [조현호](https://github.com/hajun2)      | 개인 과제 진행, QA, 버그 수정               |
+| [최창열](https://github.com/pinkdumbbel) | 개인 과제 진행, express 서버 구축           |
+| [최중재](https://github.com/joong8812)   | 개인 과제 진행 (Base로 사용), QA, 버그 수정 |
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br />
 
-## Learn More
+## 5. 프로젝트 제작 과정
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### [1] 컨벤션은 협의하여 아래와 같이 정의하였습니다 🥳
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| 커밋명      | 내용                                             |
+| ----------- | ------------------------------------------------ |
+| ✨ feat     | 파일, 폴더, 새로운 기능 추가                     |
+| 🐛 fix      | 버그 수정                                        |
+| 💄 style    | 코드 스타일 변경                                 |
+| 📝 docs     | 문서 생성, 추가, 수정(README.md)                 |
+| ♻️ refactor | 코드 리팩토링                                    |
+| 💩 chore    | 코드 수정 (JSON 데이터 포맷 변경 / scss 변경 등) |
+
+자세한 내용은 [여기](https://github.com/wanted-running-sheep/schedule/issues/1)에서 확인해주세요!
+
+### [2] 각자 개인적으로 작업을 시작하였습니다! 🏃
+
+- 팀 과제를 통해 얻은 지식으로 개인의 실력이 어느 정도인지를 체크하는 시간을 가졌습니다
+- [팀원들의 개인 작업물이 궁금하시다면? 여기를 클릭해보세요!](https://github.com/wanted-running-sheep/schedule/pulls)
+
+### [3] 가장 잘 된 프로젝트를 Base로 두고 각자 프로젝트에서 좋다고 생각하는 코드들을 모아 어벤져스 프로젝트를 만들었습니다! 🔥
+
+- 각자 진행하며 빠진 부분들을 체크할 수 있었습니다
+- 리팩터링을 통해 더 나은 코드에 대해 고민할 수 있었습니다
+
+<br/>
+
+## 6. 프로젝트 설치 및 실행
+
+1. Git Clone
+
+```command
+$ git clone
+```
+
+2. 프로젝트 실행
+
+```command
+// 프론트엔드
+$ cd frontend
+$ npm install
+$ npm run start
+
+// 백엔드
+$ cd backend
+$ npm install
+$ npm run start
+```
