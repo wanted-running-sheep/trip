@@ -8,8 +8,7 @@ const color = {
 
   font: {
     white: '#FFFFFF',
-    lightgray: '#EAEAEA',
-    darkgray: '#747474',
+    gray: '#9FA1A6',
     black: '#000000',
   },
   border: {
