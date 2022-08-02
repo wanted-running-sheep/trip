@@ -14,4 +14,9 @@ declare module 'request' {
       max: number;
     };
   }
+
+  interface searchQueryInterface {
+    keyword: string;
+    guests: number;
+  }
 }

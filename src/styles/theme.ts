@@ -9,7 +9,6 @@ const color = {
     gray: '#EFEFEF',
     lightblue: '#5FA5C4',
   },
-
   font: {
     white: '#FFFFFF',
     lightgray: '#EAEAEA',
@@ -28,6 +27,11 @@ const color = {
     gray: '#B4B4B4',
     darkgray: '#959595',
     blue: '#4375D1',
+    red: '#D95763',
+  },
+  spinner: {
+    gray: '#C3C3C399',
+    darkgray: '#636767',
   },
 };
 
@@ -36,4 +40,5 @@ export const theme = {
   media,
   mixins,
 };
+
 export type Theme = typeof theme;
