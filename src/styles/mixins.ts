@@ -12,6 +12,14 @@ const mixins = {
     top:2px;
     position:relative;
   `,
+  boxGradient: {
+    right: () => `
+    linear-gradient(to right, rgb(255, 255, 255) 50%, rgba(255, 55, 92, 0.2) 50%);
+    `,
+    left: () => `
+    linear-gradient(to right, rgba(255, 55, 92, 0.2) 50%, rgb(255, 255, 255) 50%);
+    `,
+  },
   noScrollBar: () => `
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
