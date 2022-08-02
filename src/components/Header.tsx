@@ -2,12 +2,25 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { logoUrl } from '@/constants';
 import Menu from '@/assets/icons/Menu';
+import { LOGO_URL } from '@/constants/logo';
+import { NavigateEnum } from '@/types/enum';
+import { MenuItemsProps } from '@/types/headerMenu';
 
 const Header = () => {
   const navigate = useNavigate();
   const [isMountedMenu, setIsMountedMenu] = useState(false);
+
+  const menuItems: MenuItemsProps[] = [
+    {
+      title: '예약하기',
+      onClickLink: () => navigate(NavigateEnum.MAIN),
+    },
+    {
+      title: '예약 확인',
+      onClickLink: () => navigate(NavigateEnum.CONFIRM),
+    },
+  ];
 
   const onToggleMenu = () => {
     setIsMountedMenu((prevToggle) => !prevToggle);
@@ -15,19 +28,23 @@ const Header = () => {
 
   return (
     <HeaderInner>
-      <Logo onClick={() => navigate('/main')} />
+      <Logo onClick={() => navigate('/')} />
       <MenuList>
-        <Item onClick={() => navigate('/main')}>예약하기</Item>
-        <Item onClick={() => navigate('/reservation-confirm')}>예약 확인</Item>
+        {menuItems.map((menuItem, index) => (
+          <Item key={index} onClick={menuItem.onClickLink}>
+            {menuItem.title}
+          </Item>
+        ))}
       </MenuList>
       <MobileMenuList onClick={onToggleMenu}>
         <Menu />
         {isMountedMenu && (
           <List>
-            <Item onClick={() => navigate('/main')}>예약하기</Item>
-            <Item onClick={() => navigate('/reservation-confirm')}>
-              예약 확인
-            </Item>
+            {menuItems.map((menuItem, index) => (
+              <Item key={index} onClick={menuItem.onClickLink}>
+                {menuItem.title}
+              </Item>
+            ))}
           </List>
         )}
       </MobileMenuList>
@@ -52,7 +69,7 @@ const Logo = styled.a`
   max-width: 125px;
   width: 100%;
   height: 31px;
-  background: url(${logoUrl}) center center / contain no-repeat;
+  background: url(${LOGO_URL}) center center / contain no-repeat;
   cursor: pointer;
 `;
 
