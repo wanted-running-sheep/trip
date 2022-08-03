@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { getHotelImage } from '@/utils';
+
 import styled from 'styled-components';
 
 interface HotelNameProps {
@@ -10,10 +12,6 @@ interface HotelNameProps {
 
 const HotelCard = ({ hotelName, minGuest, maxGuest }: HotelNameProps) => {
   const [isLoading, setIsLoading] = useState(true);
-
-  const getHotelImage = () => {
-    return `https://source.unsplash.com/featured/?${hotelName}`;
-  };
 
   useEffect(() => {
     loadImage();
@@ -34,7 +32,7 @@ const HotelCard = ({ hotelName, minGuest, maxGuest }: HotelNameProps) => {
   return (
     <Wrapper>
       <ImgWrapper>
-        <Img alt="hotel-image" src={getHotelImage()} />
+        <Img alt="hotel-image" src={getHotelImage(hotelName)} />
       </ImgWrapper>
       <InfoArea>
         <div>
