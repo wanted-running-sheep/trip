@@ -6,23 +6,30 @@ import { apiRequest } from '@/api/instance';
 
 import { ApiUrlEnum } from '@/types/enum';
 import { searchQueryInterface } from 'request';
+import getTotalPage from '@/utils/getTotalPage';
 
 const TIMEOUT_INTERVAL = 500;
+const FIRST_PAGE = 1;
 
 const useFetchHotel = (
   isIntersecting: boolean,
   query: searchQueryInterface
 ) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(FIRST_PAGE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hotelList, setHotelList] = useState<HotelInterface[]>([]);
+  const [totalPage, setTotalPage] = useState<number>(Number.MAX_VALUE);
 
   useEffect(() => {
-    if (isIntersecting) {
+    if (isKeepFetch()) {
       setCurrentPage((prevPage) => prevPage + 1);
       requestFilteredQuery(query);
     }
   }, [isIntersecting]);
+
+  const isKeepFetch = () => {
+    return isIntersecting && currentPage <= totalPage;
+  };
 
   const requestFilteredQuery = async ({
     keyword,
@@ -36,6 +43,10 @@ const useFetchHotel = (
       ApiUrlEnum.HOTELS,
       `?hotel_name_like=${keyword}&occupancy.base_lte=${guests}&occupancy.max_gte=${guests}&_page=${currentPage}`
     );
+
+    if (currentPage === FIRST_PAGE) {
+      setTotalPage(getTotalPage(hotelResponse));
+    }
 
     setTimeout(() => {
       setHotelList((prev) => [...prev, ...hotelResponse.data]);
