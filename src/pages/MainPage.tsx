@@ -1,7 +1,4 @@
-import { reservedHotelsState } from '@/recoil/atoms';
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { ReservedHotelInterface } from 'request';
+import React from 'react';
 import styled from 'styled-components';
 
 const MainPage = () => {
