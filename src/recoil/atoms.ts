@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
-import { SearchFilterInterface } from 'request';
+import { ReservedHotelInterface, SearchFilterInterface } from 'request';
+import { localStorageEffect } from './localStorageEffect';
 
 export const searchFilterState = atom<SearchFilterInterface>({
   key: 'searchFilterState',
@@ -10,4 +11,10 @@ export const searchFilterState = atom<SearchFilterInterface>({
     adult: 0,
     children: 0,
   },
+});
+
+export const reservedHotelsState = atom<ReservedHotelInterface[]>({
+  key: 'ReservedHotels',
+  default: [],
+  effects: [localStorageEffect<ReservedHotelInterface[]>('ReservedHotels')],
 });
