@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 import { AxiosResponse } from 'axios';
-import { HotelInterface } from 'request';
 import { apiRequest } from '@/api/instance';
+import { HotelInterface, searchQueryWithoutCurrentPage } from 'request';
 
 import { ApiUrlEnum } from '@/types/enum';
-import { searchQueryInterface } from 'request';
-import getTotalPage from '@/utils/getTotalPage';
+import { getTotalPage, getFullSearchQuery } from '@/utils';
 
 const TIMEOUT_INTERVAL = 500;
 const FIRST_PAGE = 1;
 
 const useFetchHotel = (
   isIntersecting: boolean,
-  query: searchQueryInterface
+  query: searchQueryWithoutCurrentPage
 ) => {
   const [currentPage, setCurrentPage] = useState<number>(FIRST_PAGE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,14 +33,18 @@ const useFetchHotel = (
   const requestFilteredQuery = async ({
     keyword,
     guests,
-  }: searchQueryInterface) => {
+  }: searchQueryWithoutCurrentPage) => {
     setIsLoading(true);
 
     const hotelResponse: AxiosResponse<HotelInterface[]> = await apiRequest.get<
       HotelInterface[]
     >(
       ApiUrlEnum.HOTELS,
-      `?hotel_name_like=${keyword}&occupancy.base_lte=${guests}&occupancy.max_gte=${guests}&_page=${currentPage}`
+      getFullSearchQuery({
+        keyword,
+        guests,
+        currentPage,
+      })
     );
 
     if (currentPage === FIRST_PAGE) {

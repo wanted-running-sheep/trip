@@ -18,5 +18,11 @@ declare module 'request' {
   interface searchQueryInterface {
     keyword: string;
     guests: number;
+    currentPage: number;
   }
+
+  type searchQueryWithoutCurrentPage = Omit<
+    searchQueryInterface,
+    'currentPage'
+  >;
 }
