@@ -3,7 +3,7 @@ declare module 'request' {
     keyword: string;
     checkIn: string;
     checkOut: string;
-    adult: number;
+    adults: number;
     children: number;
   }
 
