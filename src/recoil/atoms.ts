@@ -8,7 +8,7 @@ export const searchFilterState = atom<SearchFilterInterface>({
     keyword: '',
     checkIn: '',
     checkOut: '',
-    adult: 0,
+    adults: 0,
     children: 0,
   },
 });

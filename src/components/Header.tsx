@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import Menu from '@/assets/icons/Menu';
+import { Menu } from '@/assets/icons';
 import { LOGO_URL } from '@/constants/logo';
 import { NavigateEnum } from '@/types/enum';
 import { MenuItemsProps } from '@/types/headerMenu';
