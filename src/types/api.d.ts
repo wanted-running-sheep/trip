@@ -14,4 +14,12 @@ declare module 'request' {
       max: number;
     };
   }
+
+  interface ReservedHotelInterface {
+    hotel_name: string;
+    checkIn: string;
+    checkOut: string;
+    adults: number;
+    children: number;
+  }
 }
