@@ -14,12 +14,12 @@ const Calendar = () => {
     setActiveDate,
     dates,
     DEFAULT_DATE_FORMAT,
-    diffrenceMonth,
+    differenceMonth,
+    isInitCheckInOut,
   } = useCalendar();
   const setSearchFilter = useSetRecoilState(searchFilterState);
-
   const onClickMonth = (direction: 1 | -1) => {
-    if (diffrenceMonth + direction > 12) {
+    if (differenceMonth + direction > 12 || differenceMonth + direction < 0) {
       alert('캘린더는 현재 날짜 부터 1년 까지만 제공됩니다.');
       return;
     }
@@ -28,22 +28,41 @@ const Calendar = () => {
 
   const onClickDate = (date: string) => {
     setSearchFilter((prevFilter) => {
-      if (!prevFilter.checkIn) {
+      if (!prevFilter.checkIn && !prevFilter.checkOut) {
         return {
           ...prevFilter,
           checkIn: date,
+          isInitCheckInOut: false,
         };
-      } else {
-        return differenceInCalendarDays(
-          new Date(prevFilter.checkIn),
-          new Date(date)
-        ) > 0
-          ? { ...prevFilter, checkIn: date, checkOut: '' }
-          : {
-              ...prevFilter,
-              checkOut: date,
-            };
       }
+
+      if (prevFilter.checkIn && !prevFilter.checkOut) {
+        if (
+          differenceInCalendarDays(
+            new Date(prevFilter.checkIn),
+            new Date(date)
+          ) > 0
+        ) {
+          return { ...prevFilter, checkIn: date, checkOut: '' };
+        } else {
+          return {
+            ...prevFilter,
+            checkOut: date,
+            isInitCheckInOut: true,
+          };
+        }
+      }
+
+      if (prevFilter.checkIn && prevFilter.checkOut) {
+        return {
+          ...prevFilter,
+          checkIn: date,
+          checkOut: '',
+          isInitCheckInOut: false,
+        };
+      }
+
+      return prevFilter;
     });
   };
 
@@ -90,6 +109,7 @@ const Calendar = () => {
                     isSelectedCheckIn={isSelectedCheckIn}
                     isSelectedCheckOut={isSelectedCheckOut}
                     originDate={originDate}
+                    isInitCheckInOut={isInitCheckInOut}
                   >
                     <WeekItemBox isCheckInOutInclude={isCheckInOutInclude}>
                       <WeekItem
@@ -132,6 +152,7 @@ interface WeekItemContainerProps {
   isSelectedCheckIn: boolean;
   isSelectedCheckOut: boolean;
   originDate: string;
+  isInitCheckInOut: boolean;
 }
 
 const Wrapper = styled.div`
@@ -203,20 +224,30 @@ const WeekItemContainer = styled.div<WeekItemContainerProps>`
   ${({ theme }) => theme.mixins.flexBox()};
   width: calc(100% / 7);
 
-  ${({ theme, isCheckInOutInclude, isSelectedCheckIn, isSelectedCheckOut }) => {
+  ${(props) => {
+    const {
+      theme,
+      isSelectedCheckIn,
+      isSelectedCheckOut,
+      isCheckInOutInclude,
+      isInitCheckInOut,
+    } = props;
+
     let gradient = theme.color.background.white;
     let padding = '5px';
-    if (isSelectedCheckIn || isSelectedCheckOut) {
+
+    if ((isSelectedCheckIn || isSelectedCheckOut) && isInitCheckInOut) {
       gradient = isSelectedCheckIn
         ? theme.mixins.boxGradient.right()
         : theme.mixins.boxGradient.left();
       padding = '0px';
     } else {
-      if (isCheckInOutInclude) {
+      if (isCheckInOutInclude && isInitCheckInOut) {
         gradient = theme.color.background.lightred;
         padding = '0px';
       }
     }
+
     return css`
       background: ${gradient};
       padding: ${padding};
@@ -228,16 +259,6 @@ const WeekItemBox = styled.div<{ isCheckInOutInclude: boolean }>`
   ${({ theme }) => theme.mixins.flexBox()};
   width: 34px;
   height: 34px;
-
-  /* ${({ theme, isCheckInOutInclude }) => {
-    let gradient = theme.color.background.white;
-    if (isCheckInOutInclude) {
-      gradient = theme.color.background.lightred;
-    }
-    return css`
-      background: ${gradient};
-    `;
-  }} */
 `;
 
 const WeekItem = styled(WeekNmaesContainer)<WeekItemProps>`
@@ -257,7 +278,7 @@ const WeekItem = styled(WeekNmaesContainer)<WeekItemProps>`
     return css`
       color: ${!isLastDay && isSelected
         ? theme.color.font.white
-        : !isLastDay
+        : !isLastDay && isCurrentMonth
         ? theme.color.font.black
         : theme.color.font.lightgray};
       background-color: ${isSelected
@@ -265,7 +286,7 @@ const WeekItem = styled(WeekNmaesContainer)<WeekItemProps>`
         : isCheckInOutInclude
         ? theme.color.background.lightred
         : theme.color.background.white};
-      border-radius: ${isSelected ? '50%' : 'none'};
+      border-radius: ${isSelected ? '100%' : 'none'};
       &: hover {
         border-radius: ${!isLastDay && '100%'};
         border: ${!isLastDay &&

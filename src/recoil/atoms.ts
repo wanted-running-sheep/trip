@@ -9,5 +9,6 @@ export const searchFilterState = atom<SearchFilterInterface>({
     checkOut: '',
     adult: 0,
     children: 0,
+    isInitCheckInOut: true,
   },
 });

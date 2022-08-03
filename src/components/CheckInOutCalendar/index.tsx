@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CalendarIcon from '@/assets/icons/CalendarIcon';
-import Calendar from '.';
-import { addDays, format } from 'date-fns';
+import Calendar from './Calendar';
+import { addDays, differenceInCalendarDays, format } from 'date-fns';
 import { useRecoilValue } from 'recoil';
 import { searchFilterState } from '@/recoil/atoms';
 
-const Input = () => {
+const CalendarInput = () => {
   const WEEK = 7;
   const DATE_FORMAT = 'M월 d일';
   const { checkIn, checkOut } = useRecoilValue(searchFilterState);
   const [showCalendar, setShowCalendar] = useState(false);
+  const nights = differenceInCalendarDays(
+    new Date(checkOut),
+    new Date(checkIn)
+  );
 
   return (
     <Wrapper>
@@ -26,7 +30,7 @@ const Input = () => {
               : format(addDays(new Date(), WEEK), DATE_FORMAT)}
           </CheckInOutItem>
         </CheckInOutContainer>
-        <NightsContainer>1박</NightsContainer>
+        <NightsContainer>{nights && nights > 0 ? nights : 1}박</NightsContainer>
         <CheckInOutContainer>
           <CheckInOutItem>체크아웃</CheckInOutItem>
           <CheckInOutItem>
@@ -41,7 +45,7 @@ const Input = () => {
   );
 };
 
-export default Input;
+export default CalendarInput;
 
 const Wrapper = styled.div`
   width: 330px;

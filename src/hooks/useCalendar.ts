@@ -23,7 +23,8 @@ const useCalendar = () => {
   const WEEK = 7;
   const [activeDate, setActiveDate] = useState(new Date());
   const [dates, setDates] = useState<CalendarDatesInterface[]>([]);
-  const { checkIn, checkOut } = useRecoilValue(searchFilterState);
+  const { checkIn, checkOut, isInitCheckInOut } =
+    useRecoilValue(searchFilterState);
 
   const getDefaultSevenDayLater = (next = 0) => {
     return formatDateToString(addDays(new Date(), WEEK + next));
@@ -35,13 +36,7 @@ const useCalendar = () => {
     const startDate = startOfWeek(startOfTheSelectedMonth);
     const endDate = endOfWeek(endOfTheSelectedMonth);
     const confirmedCheckIn = checkIn ? checkIn : getDefaultSevenDayLater();
-    const confirmedCheckOut =
-      checkIn && !checkOut
-        ? ''
-        : checkOut
-        ? checkOut
-        : getDefaultSevenDayLater(1);
-    /* const confirmedCheckOut = checkOut ? checkOut : getDefaultSevenDayLater(1); */
+    const confirmedCheckOut = checkOut ? checkOut : getDefaultSevenDayLater(1);
 
     let currentDate = startDate;
     let checkInOutIncludeDates: string[] = [];
@@ -50,7 +45,9 @@ const useCalendar = () => {
     if (isBefore(new Date(confirmedCheckIn), new Date(confirmedCheckOut))) {
       checkInOutIncludeDates = eachDayOfInterval({
         start: new Date(confirmedCheckIn),
-        end: new Date(confirmedCheckOut),
+        end: isInitCheckInOut
+          ? new Date(confirmedCheckOut)
+          : new Date(confirmedCheckIn),
       }).map((date) => formatDateToString(date));
     }
 
@@ -58,18 +55,26 @@ const useCalendar = () => {
       const isLastDay = differenceInCalendarDays(currentDate, new Date()) < 0;
       const isCurrentMonth = getMonth(currentDate) === getMonth(activeDate);
       const formatCurrentDate = formatDateToString(currentDate);
+      const isSelectedCheckIn =
+        !checkIn && isInitCheckInOut
+          ? formatCurrentDate === getDefaultSevenDayLater()
+          : checkIn
+          ? formatCurrentDate === formatDateToString(new Date(checkIn))
+          : false;
+      const isSelectedCheckOut =
+        !checkOut && isInitCheckInOut
+          ? formatCurrentDate === getDefaultSevenDayLater(1)
+          : checkOut
+          ? formatCurrentDate === formatDateToString(new Date(checkOut))
+          : false;
 
       allDatesAttrs.push({
         isLastDay,
         isCurrentMonth,
         originDate: format(currentDate, FILTER_DATE_FORMAT),
-        date: isCurrentMonth ? format(currentDate, 'd') : '',
-        isSelectedCheckIn: checkIn
-          ? formatCurrentDate === formatDateToString(new Date(checkIn))
-          : formatCurrentDate === getDefaultSevenDayLater(),
-        isSelectedCheckOut: checkOut
-          ? formatCurrentDate === formatDateToString(new Date(checkOut))
-          : formatCurrentDate === getDefaultSevenDayLater(1),
+        date: format(currentDate, 'd'),
+        isSelectedCheckIn,
+        isSelectedCheckOut,
         isCheckInOutInclude: checkInOutIncludeDates.includes(formatCurrentDate),
       });
       currentDate = addDays(currentDate, 1);
@@ -86,7 +91,8 @@ const useCalendar = () => {
     setActiveDate,
     dates,
     DEFAULT_DATE_FORMAT,
-    diffrenceMonth: differenceInCalendarMonths(activeDate, new Date()),
+    differenceMonth: differenceInCalendarMonths(activeDate, new Date()),
+    isInitCheckInOut,
   };
 };
 

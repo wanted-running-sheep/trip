@@ -5,6 +5,7 @@ declare module 'request' {
     checkOut: string;
     adult: number;
     children: number;
+    isInitCheckInOut: boolean;
   }
 
   interface HotelInterface {

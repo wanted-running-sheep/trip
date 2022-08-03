@@ -1,9 +1,9 @@
-import Calendar from '@/components/Calendar';
-import Input from '@/components/Calendar/Input';
+import CalendarInput from '@/components/CheckInOutCalendar';
+import Input from '@/components/CheckInOutCalendar';
 import React from 'react';
 
 const CalendarPage = () => {
-  return <Input />;
+  return <CalendarInput />;
 };
 
 export default CalendarPage;
