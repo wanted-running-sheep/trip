@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input, PeopleChoose } from '@/components';
+import { Input, GuestCountInput } from '@/components';
 
 const Search = () => {
   return (
@@ -9,7 +9,7 @@ const Search = () => {
         <Input type="search" placeholder="호텔명 검색" />
       </div>
       <div>
-        <PeopleChoose />
+        <GuestCountInput />
       </div>
     </Wrapper>
   );

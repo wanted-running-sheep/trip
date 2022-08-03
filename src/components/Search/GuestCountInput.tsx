@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { Person } from '@/asset/svg';
 import { CounterEnum } from '@/types/enum';
 import { searchFilterState } from '@/recoil/atoms';
-import { PeopleCounter } from '@/components';
+import { GuestCounter } from '@/components';
 
 const initialState = { adults: 2, children: 0 };
 const peopleReducer = (state: any, action: any) => {
@@ -25,7 +25,7 @@ const peopleReducer = (state: any, action: any) => {
   }
 };
 
-const PeopleChoose = () => {
+const GuestCountInput = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [peopleState, dispatch] = useReducer(peopleReducer, initialState);
   const [searchFilter, setSearchFilter] = useRecoilState(searchFilterState);
@@ -45,8 +45,8 @@ const PeopleChoose = () => {
         {isOpenAddModal && (
           <Modal>
             <h1>객실</h1>
-            <PeopleCounter dispatch={dispatch} name="adults" />
-            <PeopleCounter dispatch={dispatch} name="children" />
+            <GuestCounter dispatch={dispatch} name="adults" />
+            <GuestCounter dispatch={dispatch} name="children" />
           </Modal>
         )}
       </Content>
@@ -54,7 +54,7 @@ const PeopleChoose = () => {
   );
 };
 
-export default PeopleChoose;
+export default GuestCountInput;
 
 const Content = styled.div`
   margin-left: 7px;

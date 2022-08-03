@@ -5,11 +5,11 @@ import { useRecoilState } from 'recoil';
 import { searchFilterState } from '@/recoil/atoms';
 import { CounterEnum, PeopleEnum, PeopleType } from '@/types/enum';
 
-interface PeopleCounterType {
+interface GuestCounterType {
   dispatch: any;
   name: PeopleType;
 }
-const PeopleCounter = ({ dispatch, name }: PeopleCounterType) => {
+const GuestCounter = ({ dispatch, name }: GuestCounterType) => {
   const [searchFilter] = useRecoilState(searchFilterState);
 
   return (
@@ -28,7 +28,7 @@ const PeopleCounter = ({ dispatch, name }: PeopleCounterType) => {
   );
 };
 
-export default PeopleCounter;
+export default GuestCounter;
 
 const Wrapper = styled.div`
   ${({ theme }) => theme.mixins.flexBox('center', 'space-between')};
