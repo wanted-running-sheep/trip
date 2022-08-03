@@ -160,9 +160,10 @@ const Wrapper = styled.div`
   display: flex;
   position: absolute;
   padding: 20px;
-  left: 10px;
-  top: 60px;
+  top: 140px;
+  z-index: 2;
   ${({ theme }) => theme.mixins.boxShadow};
+  background-color: ${({ theme }) => theme.color.background.white};
 `;
 
 const CalendarWrapper = styled.div`

@@ -3,7 +3,7 @@ declare module 'request' {
     keyword: string;
     checkIn: string;
     checkOut: string;
-    adult: number;
+    adults: number;
     children: number;
     isInitCheckInOut: boolean;
   }
@@ -15,4 +15,15 @@ declare module 'request' {
       max: number;
     };
   }
+
+  interface searchQueryInterface {
+    keyword: string;
+    guests: number;
+    currentPage: number;
+  }
+
+  type SearchQueryWithoutCurrentPageType = Omit<
+    searchQueryInterface,
+    'currentPage'
+  >;
 }

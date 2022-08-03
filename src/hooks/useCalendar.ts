@@ -15,7 +15,7 @@ import {
 } from 'date-fns';
 import { searchFilterState } from '@/recoil/atoms';
 import { useRecoilValue } from 'recoil';
-import { formatDateToString } from '@/util/formatDateToString';
+import { formatDateToString } from '@/utils';
 
 const useCalendar = () => {
   const DEFAULT_DATE_FORMAT = 'yyyy년 MM월';

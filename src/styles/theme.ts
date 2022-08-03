@@ -17,20 +17,24 @@ const color = {
     lightgray: '#EAEAEA',
     darkgray: '#747474',
     black: '#000000',
+    gray: '#9FA1A6',
   },
   border: {
     white: '#FFFFFF',
     lightgray: '#EAEAEA',
     darkgray: '#747474',
+    gray: '#CDCDCD',
     darkblue: '#4B617A',
     black: '#000000',
     red: '#F55859',
   },
   button: {
     white: '#FFFFFF',
-    gray: '#B4B4B4',
-    darkgray: '#959595',
-    blue: '#4375D1',
+    red: '#D95763',
+  },
+  spinner: {
+    gray: '#C3C3C399',
+    darkgray: '#636767',
   },
 };
 

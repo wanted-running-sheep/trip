@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CalendarIcon from '@/assets/icons/CalendarIcon';
 import Calendar from './Calendar';
-import { addDays, differenceInCalendarDays, format } from 'date-fns';
 import { useRecoilValue } from 'recoil';
 import { searchFilterState } from '@/recoil/atoms';
+import { checkInOutText, getNights } from '@/utils';
 
 const CalendarInput = () => {
-  const WEEK = 7;
-  const DATE_FORMAT = 'M월 d일';
-  const { checkIn, checkOut } = useRecoilValue(searchFilterState);
+  const { checkIn, checkOut, isInitCheckInOut } =
+    useRecoilValue(searchFilterState);
   const [showCalendar, setShowCalendar] = useState(false);
-  const nights = differenceInCalendarDays(
-    new Date(checkOut),
-    new Date(checkIn)
-  );
+
+  const { formatChecInText, formatCheckOutText } = checkInOutText;
+  useEffect(() => {
+    if (checkIn && checkOut && showCalendar) setShowCalendar(false);
+  }, [checkOut]);
 
   return (
     <Wrapper>
@@ -24,19 +24,13 @@ const CalendarInput = () => {
         </IconContainer>
         <CheckInOutContainer>
           <CheckInOutItem>체크인</CheckInOutItem>
-          <CheckInOutItem>
-            {checkIn
-              ? format(new Date(checkIn), DATE_FORMAT)
-              : format(addDays(new Date(), WEEK), DATE_FORMAT)}
-          </CheckInOutItem>
+          <CheckInOutItem>{formatChecInText(checkIn)}</CheckInOutItem>
         </CheckInOutContainer>
-        <NightsContainer>{nights && nights > 0 ? nights : 1}박</NightsContainer>
+        <NightsContainer>{getNights(checkIn, checkOut)}박</NightsContainer>
         <CheckInOutContainer>
           <CheckInOutItem>체크아웃</CheckInOutItem>
           <CheckInOutItem>
-            {checkOut
-              ? format(new Date(checkOut), DATE_FORMAT)
-              : format(addDays(new Date(), WEEK + 1), DATE_FORMAT)}
+            {formatCheckOutText(checkOut, isInitCheckInOut)}
           </CheckInOutItem>
         </CheckInOutContainer>
       </Container>
@@ -51,7 +45,7 @@ const Wrapper = styled.div`
   width: 330px;
   height: 60px;
   display: flex;
-  border: 1px solid ${({ theme }) => theme.color.border.lightgray};
+  border: 1px solid ${({ theme }) => theme.color.border.gray};
   cursor: pointer;
 
   &:hover {

@@ -11,21 +11,13 @@ const GlobalStyles = createGlobalStyle`
  #root, html, body {
    height: 100%;
  }
- h1{
-  font-size: 40px;
-  font-weight: 700;
- }
- h3{
-  font-size: 28px;
-  font-weight: 500;
- }
- button{
-  font-size: 18px;
+ h1 {
+   font-weight: 700;
  }
  a {
   text-decoration: none;
  }
- button, svg, input, select, label, li {
+ button, svg, input, select, label {
   cursor: pointer;
  }
 `;
