@@ -5,7 +5,6 @@ const color = {
   background: {
     white: '#FFFFFF',
   },
-
   font: {
     white: '#FFFFFF',
     gray: '#9FA1A6',
@@ -18,6 +17,11 @@ const color = {
   },
   button: {
     white: '#FFFFFF',
+    red: '#D95763',
+  },
+  spinner: {
+    gray: '#C3C3C399',
+    darkgray: '#636767',
   },
 };
 
@@ -26,4 +30,5 @@ export const theme = {
   media,
   mixins,
 };
+
 export type Theme = typeof theme;
