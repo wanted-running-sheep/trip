@@ -1,7 +1,6 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-
 import Layout from '@/components/Layout';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ConfirmPage, MainPage } from '@/pages';
 import { NavigateEnum } from '@/types/enum';
 

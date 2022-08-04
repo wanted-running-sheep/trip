@@ -1,7 +1,7 @@
-import HotelList from '@/components/HotelList';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Search } from '@/components';
+import HotelList from '@/components/HotelList';
 
 const MainPage = () => {
   const [clickToggle, setClickToggle] = useState<boolean>(false);
@@ -16,10 +16,8 @@ const MainPage = () => {
 
   return (
     <Section>
-      예약 페이지
       <Search />
-      <button onClick={handleSearchClick}>검색</button>
-      {clickToggle && <HotelList searchQuery={searchQuery} />}
+      <HotelList />
     </Section>
   );
 };
