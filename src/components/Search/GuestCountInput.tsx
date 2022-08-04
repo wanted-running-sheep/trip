@@ -10,7 +10,7 @@ const GuestCountInput = ({ guestState, dispatch }: any) => {
   return (
     <>
       <Person />
-      <Content onBlur={() => setIsOpenAddModal(false)} tabIndex={0}>
+      <Content>
         <span>객실 / 인원</span>
         <h1 onClick={() => setIsOpenAddModal(!isOpenAddModal)}>
           객실 1, 인원 {guestState.adults + guestState.children}
@@ -50,13 +50,17 @@ const Content = styled.div`
   }
 `;
 const Modal = styled.div`
+  ${({ theme }) => theme.mixins.boxShadow(0.1)}
   background: ${({ theme }) => theme.color.background.white};
+  border: 1px solid ${({ theme }) => theme.color.border.lightgray};
   position: absolute;
   width: 250px;
-  padding: 10px 7px;
-  border: 1px solid ${({ theme }) => theme.color.border.lightgray};
+  padding: 10px 15px;
+  border-radius: 5px;
 
   h1 {
     border-bottom: 1px solid ${({ theme }) => theme.color.border.lightgray};
+    padding: 8px 0px;
+    font-size: 1.1rem;
   }
 `;

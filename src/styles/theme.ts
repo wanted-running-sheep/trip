@@ -9,6 +9,7 @@ const color = {
   font: {
     white: '#FFFFFF',
     gray: '#9FA1A6',
+    red: '#FF3B2F',
     black: '#000000',
   },
   border: {
