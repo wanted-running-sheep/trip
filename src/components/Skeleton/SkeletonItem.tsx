@@ -77,7 +77,7 @@ const Shimmer = styled.div`
       transform: translateX(100%);
     }
     100% {
-      transform: translate(100%);
+      transform: translate(200%);
     }
   }
 `;

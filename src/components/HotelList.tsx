@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import useFetchHotel from '@/hooks/useFetchHotel';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 
-import { searchQueryWithoutCurrentPage } from 'request';
+import { SearchQueryWithoutCurrentPageType } from 'request';
 
 import Spinner from '@/components/Spinner';
 import HotelCard from '@/components/HotelCard';
@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import Skeleton from './Skeleton';
 
 interface HotelListProps {
-  searchQuery?: searchQueryWithoutCurrentPage;
+  searchQuery?: SearchQueryWithoutCurrentPageType;
 }
 
 const initFilterValue = {

@@ -5,6 +5,8 @@ declare module 'request' {
     checkOut: string;
     adults: number;
     children: number;
+    isInitCheckInOut: boolean;
+    activeMonth: Date;
   }
 
   interface HotelInterface {
@@ -21,7 +23,7 @@ declare module 'request' {
     currentPage: number;
   }
 
-  type searchQueryWithoutCurrentPage = Omit<
+  type SearchQueryWithoutCurrentPageType = Omit<
     searchQueryInterface,
     'currentPage'
   >;
