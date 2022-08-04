@@ -6,6 +6,7 @@ declare module 'request' {
     adults: number;
     children: number;
     isInitCheckInOut: boolean;
+    activeMonth: Date;
   }
 
   interface HotelInterface {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import CalendarIcon from '@/assets/icons/CalendarIcon';
 import Calendar from './Calendar';
@@ -10,14 +10,30 @@ const CalendarInput = () => {
   const { checkIn, checkOut, isInitCheckInOut } =
     useRecoilValue(searchFilterState);
   const [showCalendar, setShowCalendar] = useState(false);
-
   const { formatChecInText, formatCheckOutText } = checkInOutText;
+  const wrpperRef = useRef<HTMLDivElement>(null);
+
+  const onClickCalendarOutside = (event: MouseEvent) => {
+    if (!wrpperRef.current?.contains(event.target as Node)) {
+      setShowCalendar((prev) => {
+        return prev && false;
+      });
+    }
+  };
+
   useEffect(() => {
     if (checkIn && checkOut && showCalendar) setShowCalendar(false);
   }, [checkOut]);
 
+  useEffect(() => {
+    document.addEventListener('mousedown', onClickCalendarOutside);
+    return () => {
+      document.removeEventListener('mousedown', onClickCalendarOutside);
+    };
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper ref={wrpperRef}>
       <Container onClick={() => setShowCalendar((prev) => !prev)}>
         <IconContainer>
           <CalendarIcon />
@@ -45,6 +61,7 @@ const Wrapper = styled.div`
   width: 330px;
   height: 60px;
   display: flex;
+  position: relative;
   border: 1px solid ${({ theme }) => theme.color.border.gray};
   cursor: pointer;
 

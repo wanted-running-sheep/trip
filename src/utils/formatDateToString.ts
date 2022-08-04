@@ -1,7 +1,8 @@
+import { DateFormatEnum } from '@/types/enum';
 import { format } from 'date-fns';
 const formatDateToString = (
   date: Date,
-  formatString: string = 'yyyy-MM-dd'
+  formatString: string = DateFormatEnum.DEFAULT_FORMAT
 ) => {
   return format(date, formatString);
 };

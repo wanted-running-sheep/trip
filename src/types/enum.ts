@@ -23,6 +23,12 @@ export const CheckInOutEnum = {
   CHECK_OUT: 'checkOut',
 } as const;
 
+export const DateFormatEnum = {
+  DEFAULT_FORMAT: 'yyyy-MM-dd',
+  FORMAT_KOR_MONTH: 'yyyy년 MM월',
+  FORMAT_KOR: 'yyyy년 MM월 dd일',
+  FORMAT_KOR_MONTH_DAY: 'M월 d일',
+} as const;
 export type ApiUrlType = typeof ApiUrlEnum[keyof typeof ApiUrlEnum];
 export type NavigateType = typeof NavigateEnum[keyof typeof NavigateEnum];
 export type CounterType = keyof typeof CounterEnum;

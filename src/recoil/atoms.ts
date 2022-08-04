@@ -10,5 +10,6 @@ export const searchFilterState = atom<SearchFilterInterface>({
     adults: 0,
     children: 0,
     isInitCheckInOut: true,
+    activeMonth: new Date(),
   },
 });

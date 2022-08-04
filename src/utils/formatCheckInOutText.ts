@@ -1,6 +1,7 @@
+import { DateFormatEnum } from '@/types/enum';
 import { format, addDays } from 'date-fns';
 
-const DATE_FORMAT = 'M월 d일';
+const DATE_FORMAT = DateFormatEnum.FORMAT_KOR_MONTH_DAY;
 const WEEK = 7;
 
 const formatCheckOutText = (checkOut: string, isInitCheckInOut: boolean) => {

@@ -16,14 +16,12 @@ import {
 import { searchFilterState } from '@/recoil/atoms';
 import { useRecoilValue } from 'recoil';
 import { formatDateToString } from '@/utils';
+import { DateFormatEnum } from '@/types/enum';
 
 const useCalendar = () => {
-  const DEFAULT_DATE_FORMAT = 'yyyy년 MM월';
-  const FILTER_DATE_FORMAT = 'yyyy-MM-dd';
   const WEEK = 7;
-  const [activeDate, setActiveDate] = useState(new Date());
   const [dates, setDates] = useState<CalendarDatesInterface[]>([]);
-  const { checkIn, checkOut, isInitCheckInOut } =
+  const { checkIn, checkOut, isInitCheckInOut, activeMonth } =
     useRecoilValue(searchFilterState);
 
   const getDefaultSevenDayLater = (next = 0) => {
@@ -31,8 +29,8 @@ const useCalendar = () => {
   };
 
   const getDates = () => {
-    const startOfTheSelectedMonth = startOfMonth(activeDate);
-    const endOfTheSelectedMonth = endOfMonth(activeDate);
+    const startOfTheSelectedMonth = startOfMonth(activeMonth);
+    const endOfTheSelectedMonth = endOfMonth(activeMonth);
     const startDate = startOfWeek(startOfTheSelectedMonth);
     const endDate = endOfWeek(endOfTheSelectedMonth);
     const confirmedCheckIn = checkIn ? checkIn : getDefaultSevenDayLater();
@@ -53,7 +51,7 @@ const useCalendar = () => {
 
     while (currentDate <= endDate) {
       const isLastDay = differenceInCalendarDays(currentDate, new Date()) < 0;
-      const isCurrentMonth = getMonth(currentDate) === getMonth(activeDate);
+      const isCurrentMonth = getMonth(currentDate) === getMonth(activeMonth);
       const formatCurrentDate = formatDateToString(currentDate);
       const isSelectedCheckIn =
         !checkIn && isInitCheckInOut
@@ -71,7 +69,7 @@ const useCalendar = () => {
       allDatesAttrs.push({
         isLastDay,
         isCurrentMonth,
-        originDate: format(currentDate, FILTER_DATE_FORMAT),
+        originDate: format(currentDate, DateFormatEnum.DEFAULT_FORMAT),
         date: format(currentDate, 'd'),
         isSelectedCheckIn,
         isSelectedCheckOut,
@@ -84,14 +82,12 @@ const useCalendar = () => {
 
   useEffect(() => {
     getDates();
-  }, [activeDate, checkIn, checkOut]);
+  }, [activeMonth, checkIn, checkOut]);
 
   return {
-    activeDate,
-    setActiveDate,
+    activeMonth,
     dates,
-    DEFAULT_DATE_FORMAT,
-    differenceMonth: differenceInCalendarMonths(activeDate, new Date()),
+    differenceMonth: differenceInCalendarMonths(activeMonth, new Date()),
     isInitCheckInOut,
   };
 };
