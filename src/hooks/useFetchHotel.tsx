@@ -50,7 +50,6 @@ const useFetchHotel = (
     if (currentPage === FIRST_PAGE) {
       setTotalPage(getTotalPage(hotelResponse));
     }
-
     setTimeout(() => {
       setHotelList((prev) => [...prev, ...hotelResponse.data]);
       setIsLoading(false);

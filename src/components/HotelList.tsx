@@ -9,6 +9,7 @@ import Spinner from '@/components/Spinner';
 import HotelCard from '@/components/HotelCard';
 
 import styled from 'styled-components';
+import Skeleton from './Skeleton';
 
 interface HotelListProps {
   searchQuery?: searchQueryWithoutCurrentPage;
@@ -39,15 +40,19 @@ const HotelList = ({ searchQuery = initFilterValue }: HotelListProps) => {
   return (
     <Wrapper>
       <ul>
-        {hotelList.map(({ hotel_name, occupancy }) => (
-          <Li key={hotel_name}>
-            <HotelCard
-              hotelName={hotel_name}
-              minGuest={occupancy.base}
-              maxGuest={occupancy.max}
-            />
-          </Li>
-        ))}
+        {isLoading && !hotelList.length ? (
+          <Skeleton />
+        ) : (
+          hotelList.map(({ hotel_name, occupancy }) => (
+            <Li key={hotel_name}>
+              <HotelCard
+                hotelName={hotel_name}
+                minGuest={occupancy.base}
+                maxGuest={occupancy.max}
+              />
+            </Li>
+          ))
+        )}
       </ul>
       {isLoading && <Spinner />}
       <div ref={loaderRef}></div>
@@ -59,6 +64,7 @@ export default HotelList;
 
 const Wrapper = styled.div`
   overflow: auto;
+  ${({ theme }) => theme.mixins.noScrollBar()}
 `;
 
 const Li = styled.li`
