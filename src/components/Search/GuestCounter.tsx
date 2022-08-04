@@ -1,18 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-
-import { searchFilterState } from '@/recoil/atoms';
 import { CounterEnum, PeopleEnum, PeopleType } from '@/types/enum';
 import { GuestActionType } from '@/types/guest';
 
 interface GuestCounterType {
+  count: number;
   dispatch: React.Dispatch<GuestActionType>;
   name: PeopleType;
 }
-const GuestCounter = ({ dispatch, name }: GuestCounterType) => {
-  const [searchFilter] = useRecoilState(searchFilterState);
-
+const GuestCounter = ({ count, dispatch, name }: GuestCounterType) => {
   return (
     <Wrapper>
       <span>{PeopleEnum[name].name}</span>
@@ -20,7 +16,7 @@ const GuestCounter = ({ dispatch, name }: GuestCounterType) => {
         <button onClick={() => dispatch({ type: CounterEnum.INCREMENT, name })}>
           +
         </button>
-        <span>{searchFilter[name]}</span>
+        <span>{count}</span>
         <button onClick={() => dispatch({ type: CounterEnum.DECREMENT, name })}>
           -
         </button>

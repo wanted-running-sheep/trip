@@ -1,44 +1,16 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
 
 import { Person } from '@/assets/icons';
-import { searchFilterState } from '@/recoil/atoms';
 import { GuestCounter } from '@/components';
-import { CounterEnum } from '@/types/enum';
-import { GuestActionType, GuestStateType } from '@/types/guest';
 
-const initialState = { adults: 2, children: 0 };
-const guestReducer = (state: GuestStateType, action: GuestActionType) => {
-  switch (action.type) {
-    case CounterEnum.INCREMENT:
-      return {
-        ...state,
-        [action.name]: state[action.name] + 1,
-      };
-    case CounterEnum.DECREMENT:
-      return {
-        ...state,
-        [action.name]: state[action.name] - 1,
-      };
-    default:
-      return state;
-  }
-};
-
-const GuestCountInput = () => {
+const GuestCountInput = ({ guestState, dispatch }: any) => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
-  const [guestState, dispatch] = useReducer(guestReducer, initialState);
-  const [searchFilter, setSearchFilter] = useRecoilState(searchFilterState);
-
-  useEffect(() => {
-    setSearchFilter({ ...searchFilter, ...guestState });
-  }, [guestState]);
 
   return (
     <>
       <Person />
-      <Content>
+      <Content onBlur={() => setIsOpenAddModal(false)} tabIndex={0}>
         <span>객실 / 인원</span>
         <h1 onClick={() => setIsOpenAddModal(!isOpenAddModal)}>
           객실 1, 인원 {guestState.adults + guestState.children}
@@ -46,8 +18,16 @@ const GuestCountInput = () => {
         {isOpenAddModal && (
           <Modal>
             <h1>객실</h1>
-            <GuestCounter dispatch={dispatch} name="adults" />
-            <GuestCounter dispatch={dispatch} name="children" />
+            <GuestCounter
+              count={guestState.adults}
+              dispatch={dispatch}
+              name="adults"
+            />
+            <GuestCounter
+              count={guestState.children}
+              dispatch={dispatch}
+              name="children"
+            />
           </Modal>
         )}
       </Content>
@@ -70,8 +50,8 @@ const Content = styled.div`
   }
 `;
 const Modal = styled.div`
+  background: ${({ theme }) => theme.color.background.white};
   position: absolute;
-  bottom: -100px;
   width: 250px;
   padding: 10px 7px;
   border: 1px solid ${({ theme }) => theme.color.border.lightgray};

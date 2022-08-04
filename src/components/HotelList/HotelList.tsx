@@ -1,28 +1,16 @@
 import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
+import { searchQueryWithoutCurrentPage } from 'request';
 import useFetchHotel from '@/hooks/useFetchHotel';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 
-import { searchQueryWithoutCurrentPage } from 'request';
+import { Spinner, HotelCard } from '@/components';
 
-import Spinner from '@/components/Spinner';
-import HotelCard from '@/components/HotelCard';
-
-import styled from 'styled-components';
-
-interface HotelListProps {
-  searchQuery?: searchQueryWithoutCurrentPage;
-}
-
-const initFilterValue = {
-  keyword: '',
-  guests: 2,
-};
-
-const HotelList = ({ searchQuery = initFilterValue }: HotelListProps) => {
+const HotelList = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
   const { isIntersecting, getObserver } = useInfiniteScroll(loaderRef);
-  const { hotelList, isLoading } = useFetchHotel(isIntersecting, searchQuery);
+  const { hotelList, isLoading } = useFetchHotel(isIntersecting);
 
   const observeTrigger = (isLoading: boolean) => {
     if (isLoading) {

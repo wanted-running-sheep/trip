@@ -4,6 +4,7 @@ import media from './media';
 const color = {
   background: {
     white: '#FFFFFF',
+    lightgray: '#EBEBEB',
   },
   font: {
     white: '#FFFFFF',

@@ -17,8 +17,11 @@ const GlobalStyles = createGlobalStyle`
  a {
   text-decoration: none;
  }
+ input {
+   background: none;
+ }
  button, svg, input, select, label {
-  cursor: pointer;
+    cursor: pointer;
  }
 `;
 

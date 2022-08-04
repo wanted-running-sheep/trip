@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Search } from '@/components';
+
+import { Search, HotelList } from '@/components';
 
 const MainPage = () => {
   return (
     <Section>
-      예약 페이지
       <Search />
+      <HotelList />
     </Section>
   );
 };
