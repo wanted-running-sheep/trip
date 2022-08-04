@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getHotelImage } from '@/utils';
 
 import styled from 'styled-components';
+import SkeletonItem from './Skeleton/SkeletonItem';
 
 interface HotelNameProps {
   hotelName: string;
@@ -26,7 +27,7 @@ const HotelCard = ({ hotelName, minGuest, maxGuest }: HotelNameProps) => {
   };
 
   if (isLoading) {
-    return <></>;
+    return <SkeletonItem />;
   }
 
   return (
@@ -51,10 +52,10 @@ const HotelCard = ({ hotelName, minGuest, maxGuest }: HotelNameProps) => {
 export default HotelCard;
 
 const Wrapper = styled.div`
-  margin-bottom: 10px;
-  border: 1px solid gray;
+  margin-top: 10px;
+  border: 1px solid ${({ theme }) => theme.color.border.lightgray};
   border-radius: 4px;
-
+  ${({ theme }) => theme.mixins.boxShadow()}
   display: flex;
 `;
 
