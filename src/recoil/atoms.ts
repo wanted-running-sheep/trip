@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, atomFamily } from 'recoil';
 import { ReservedHotelInterface, SearchFilterInterface } from 'request';
 import { localStorageEffect } from './localStorageEffect';
 
@@ -13,8 +13,17 @@ export const searchFilterState = atom<SearchFilterInterface>({
   },
 });
 
-export const reservedHotelsState = atom<ReservedHotelInterface[]>({
-  key: 'ReservedHotels',
-  default: [],
-  effects: [localStorageEffect<ReservedHotelInterface[]>('ReservedHotels')],
+//예약된 호텔 family
+export const reservedHotelState = atomFamily<ReservedHotelInterface[], string>({
+  key: 'ReservedHotelFamily',
+  default: [] as ReservedHotelInterface[],
+  effects: (hotelName) => [
+    localStorageEffect<ReservedHotelInterface[]>(hotelName),
+  ],
+});
+
+//모든 호텔 keys
+export const reservedHotelsKeyState = atom<string[]>({
+  key: 'localStorageKeys',
+  default: Object.keys(localStorage),
 });

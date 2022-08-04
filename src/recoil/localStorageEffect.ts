@@ -1,6 +1,6 @@
 import { AtomEffect } from 'recoil';
 
-export const localStorageEffect: <T>(key: string) => AtomEffect<T> =
+export const localStorageEffect: <T>(key: any) => AtomEffect<T> =
   (key: string) =>
   ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);

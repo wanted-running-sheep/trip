@@ -16,12 +16,12 @@ declare module 'request' {
   }
 
   interface ReservedHotelInterface {
-    hotel_name: string;
     checkIn: string;
     checkOut: string;
     adults: number;
     children: number;
   }
+
   interface searchQueryInterface {
     keyword: string;
     guests: number;
