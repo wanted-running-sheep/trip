@@ -23,9 +23,3 @@ export const reservedHotelState = atomFamily<ReservedHotelInterface[], string>({
     localStorageEffect<ReservedHotelInterface[]>(hotelName),
   ],
 });
-
-//모든 호텔 keys
-export const reservedHotelsKeyState = atom<string[]>({
-  key: 'localStorageKeys',
-  default: Object.keys(localStorage),
-});

@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { getHotelImage } from '@/utils';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { reservedHotelState } from '@/recoil/atoms';
+import SkeletonItem from './Skeleton/SkeletonItem';
+import { ReservedHotelInterface } from 'request';
 
 interface HotelCardReservedProps {
   hotelName: string;
   checkIn: string;
+  checkOut: string;
+  adults: number;
+  childrenParam: number;
 }
 
-const HotelCardReserved = ({ hotelName, checkIn }: HotelCardReservedProps) => {
+const HotelCardReserved = ({
+  hotelName,
+  checkIn,
+  checkOut,
+  adults,
+  childrenParam,
+}: HotelCardReservedProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [reservedHotel, setReservedHotel] = useRecoilState(
+  const [reservedState, setReservedState] = useRecoilState(
     reservedHotelState(hotelName)
   );
 
@@ -27,8 +38,26 @@ const HotelCardReserved = ({ hotelName, checkIn }: HotelCardReservedProps) => {
     };
   };
 
+  useEffect(() => {
+    if (Array.isArray(reservedState)) {
+      if (JSON.parse(localStorage.getItem(hotelName) as string).length === 0) {
+        localStorage.removeItem(hotelName);
+      }
+    }
+  }, [reservedState]);
+
+  const cancelReservation = () => {
+    if (Array.isArray(reservedState)) {
+      setReservedState(
+        reservedState.filter((hotel) => hotel.checkIn !== checkIn)
+      );
+      return;
+    }
+    localStorage.removeItem(hotelName);
+  };
+
   if (isLoading) {
-    return <></>;
+    return <SkeletonItem />;
   }
 
   return (
@@ -40,12 +69,12 @@ const HotelCardReserved = ({ hotelName, checkIn }: HotelCardReservedProps) => {
         <div>
           <H2>{hotelName}</H2>
           <P>체크인: {checkIn}</P>
-          {/* <P>체크아웃: {checkOut}</P>
+          <P>체크아웃: {checkOut}</P>
           <P>어른: {adults}</P>
-          <P>아이: {children}</P> */}
+          <P>아이: {childrenParam}</P>
         </div>
         <ButtonWrapper>
-          <Button>예약</Button>
+          <Button onClick={() => cancelReservation()}>취소</Button>
         </ButtonWrapper>
       </InfoArea>
     </Wrapper>
@@ -56,9 +85,9 @@ export default HotelCardReserved;
 
 const Wrapper = styled.div`
   margin-bottom: 10px;
-  border: 1px solid gray;
+  border: 1px solid ${({ theme }) => theme.color.border.lightgray};
   border-radius: 4px;
-
+  ${({ theme }) => theme.mixins.boxShadow()}
   display: flex;
 `;
 

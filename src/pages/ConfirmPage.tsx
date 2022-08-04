@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { reservedHotelsKeyState } from '@/recoil/atoms';
-import { useRecoilState } from 'recoil';
 import { HotelInterface, ReservedHotelInterface } from 'request';
 import { apiRequest } from '@/api/instance';
 import { ApiUrlEnum } from '@/types/enum';
@@ -12,7 +10,7 @@ interface ReservedHotelAddNameProps extends ReservedHotelInterface {
 }
 
 const ConfirmPage = () => {
-  /*//test data
+  //test data
   const pushLocalStorageTestHotel = () => {
     localStorage.setItem(
       '에코랜드 호텔',
@@ -41,7 +39,7 @@ const ConfirmPage = () => {
       })
     );
   };
-  // 추가
+  /*// 추가
   const addReservation = (hotel: ReservedHotelInterface) => {
     setReservedHotel((prev) => [...prev, hotel]);
   };
@@ -53,9 +51,8 @@ const ConfirmPage = () => {
     );
   };*/
 
-  //불러오기
-  const [hotelsKey, setHotelsKey] = useRecoilState<string[]>(
-    reservedHotelsKeyState
+  const [hotelsKey, setHotelsKey] = useState<string[]>(
+    Object.keys(localStorage)
   );
   const [allHotels, setAllHotels] = useState<string[]>([]);
   const [reservedHotels, setReservedHotels] = useState<
@@ -78,26 +75,27 @@ const ConfirmPage = () => {
   };
 
   const getAllReservation = () => {
-    let formattedReserved: ReservedHotelAddNameProps[] = [];
+    let formattedReservation: ReservedHotelAddNameProps[] = [];
     hotelsKey.forEach((key) => {
       const hotels = JSON.parse(localStorage.getItem(key) as string);
       Array.isArray(hotels)
         ? hotels.forEach((hotel) => {
             hotel.hotelName = key;
-            formattedReserved.push(hotel);
+            formattedReservation.push(hotel);
           })
-        : ((hotels.hotelName = key), formattedReserved.push(hotels));
+        : ((hotels.hotelName = key), formattedReservation.push(hotels));
     });
-    formattedReserved.sort(
+    formattedReservation.sort(
       (a, b) => new Date(a.checkIn).getTime() - new Date(b.checkIn).getTime()
     );
-    setReservedHotels(formattedReserved);
+    setReservedHotels(formattedReservation);
   };
 
+  // [ ] 종속성을 잘 찾기. 지금은 최초 로딩에만 렌더링됨.
   useEffect(() => {
+    // pushLocalStorageTestHotel();
     getAllHotelNames();
     getAllReservation();
-    console.log(reservedHotels);
   }, []);
 
   return (
@@ -108,9 +106,12 @@ const ConfirmPage = () => {
           key={index}
           hotelName={hotel.hotelName}
           checkIn={hotel.checkIn}
+          checkOut={hotel.checkOut}
+          adults={hotel.adults}
+          childrenParam={hotel.children}
         />
       ))}
-      {/* 로딩화면은 스켈레톤으로 */}
+      {/*[ ] 로딩화면은 스켈레톤으로 */}
     </Section>
   );
 };
