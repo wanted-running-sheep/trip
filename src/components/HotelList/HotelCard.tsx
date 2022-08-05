@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 import { getHotelImage } from '@/utils';
-
-import styled from 'styled-components';
-import SkeletonItem from './Skeleton/SkeletonItem';
+import { SkeletonItem } from '@/components';
 
 interface HotelNameProps {
   hotelName: string;

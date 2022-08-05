@@ -7,7 +7,7 @@ export const searchFilterState = atom<SearchFilterInterface>({
     keyword: '',
     checkIn: '',
     checkOut: '',
-    adults: 0,
+    adults: 2,
     children: 0,
     isInitCheckInOut: true,
     activeMonth: new Date(),

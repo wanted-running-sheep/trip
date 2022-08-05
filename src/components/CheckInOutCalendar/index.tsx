@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import CalendarIcon from '@/assets/icons/CalendarIcon';
+import { default as CalendarIcon } from '@/assets/icons/Calendar';
 import Calendar from './Calendar';
 import { useRecoilValue } from 'recoil';
 import { searchFilterState } from '@/recoil/atoms';
@@ -35,9 +35,7 @@ const CalendarInput = () => {
   return (
     <Wrapper ref={wrpperRef}>
       <Container onClick={() => setShowCalendar((prev) => !prev)}>
-        <IconContainer>
-          <CalendarIcon />
-        </IconContainer>
+        <CalendarIcon />
         <CheckInOutContainer>
           <CheckInOutItem>체크인</CheckInOutItem>
           <CheckInOutItem>{formatChecInText(checkIn)}</CheckInOutItem>
@@ -58,16 +56,11 @@ const CalendarInput = () => {
 export default CalendarInput;
 
 const Wrapper = styled.div`
-  width: 330px;
-  height: 60px;
+  width: 280px;
+  height: 100%;
   display: flex;
   position: relative;
-  border: 1px solid ${({ theme }) => theme.color.border.gray};
   cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.background.gray};
-  }
 `;
 
 const Container = styled.div`
@@ -75,12 +68,6 @@ const Container = styled.div`
   flex: 1 1 0;
   height: 100%;
   display: flex;
-`;
-
-const IconContainer = styled.div`
-  width: 56px;
-  height: 100%;
-  padding: 15px 13px;
 `;
 
 const CheckInOutContainer = styled.div`

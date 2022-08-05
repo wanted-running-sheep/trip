@@ -88,7 +88,7 @@ const Wrapper = styled.div`
   top: calc(100% + 10px);
   left: -38px;
   z-index: 2;
-  ${({ theme }) => theme.mixins.boxShadow};
+  ${({ theme }) => theme.mixins.boxShadow()};
   background-color: ${({ theme }) => theme.color.background.white};
 `;
 

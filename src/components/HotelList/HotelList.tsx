@@ -1,15 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
 import useFetchHotel from '@/hooks/useFetchHotel';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 
 import { SearchQueryWithoutCurrentPageType } from 'request';
-
-import Spinner from '@/components/Spinner';
-import HotelCard from '@/components/HotelCard';
-
-import styled from 'styled-components';
-import Skeleton from './Skeleton';
+import { Spinner, HotelCard, Skeleton } from '@/components';
 
 interface HotelListProps {
   searchQuery?: SearchQueryWithoutCurrentPageType;
@@ -20,10 +16,10 @@ const initFilterValue = {
   guests: 2,
 };
 
-const HotelList = ({ searchQuery = initFilterValue }: HotelListProps) => {
+const HotelList = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
   const { isIntersecting, getObserver } = useInfiniteScroll(loaderRef);
-  const { hotelList, isLoading } = useFetchHotel(isIntersecting, searchQuery);
+  const { hotelList, isLoading } = useFetchHotel(isIntersecting);
 
   const observeTrigger = (isLoading: boolean) => {
     if (isLoading) {
