@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { Search as SearchIcon } from '@/assets/icons';
 import { SearchInput, GuestCountInput, CheckInOutCalendar } from '@/components';
-import { searchFilterState } from '@/recoil/atoms';
+import { searchFilterState, toggleSearchClickState } from '@/recoil/atoms';
 import { CounterEnum } from '@/types/enum';
 import { GuestActionType, GuestStateType } from '@/types/guest';
 
@@ -30,16 +30,19 @@ const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [guestState, dispatch] = useReducer(guestReducer, initialState);
   const setSearchFilter = useSetRecoilState(searchFilterState);
+  const setToggleSearchClick = useSetRecoilState(toggleSearchClickState);
 
   const searchByFilter = () => {
     const keyword = inputRef.current?.value;
 
-    if (keyword !== undefined)
+    if (keyword !== undefined) {
       setSearchFilter((prevFilter) => ({
         ...prevFilter,
         ...guestState,
         keyword,
       }));
+      setToggleSearchClick((prevToggle) => !prevToggle);
+    }
   };
 
   return (

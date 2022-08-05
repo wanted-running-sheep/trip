@@ -7,12 +7,14 @@ import { apiRequest } from '@/api/instance';
 import { ApiUrlEnum } from '@/types/enum';
 import { getTotalPage, getFullSearchQuery } from '@/utils';
 import { formattedSearchFilter } from '@/recoil/selectors';
+import { toggleSearchClickState } from '@/recoil/atoms';
 
 const TIMEOUT_INTERVAL = 500;
 const FIRST_PAGE = 1;
 
 const useFetchHotel = (isIntersecting: boolean) => {
   const query = useRecoilValue(formattedSearchFilter);
+  const toggleSearchClick = useRecoilValue(toggleSearchClickState);
   const [currentPage, setCurrentPage] = useState<number>(FIRST_PAGE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hotelList, setHotelList] = useState<HotelInterface[]>([]);
@@ -29,7 +31,7 @@ const useFetchHotel = (isIntersecting: boolean) => {
   useEffect(() => {
     resetValue();
     setToggleReset((prevState) => !prevState);
-  }, [JSON.stringify(query)]);
+  }, [toggleSearchClick]);
 
   const resetValue = () => {
     setHotelList([]);

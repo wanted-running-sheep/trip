@@ -4,3 +4,4 @@ export { default as getHotelImage } from './getHotelImage';
 export { default as formatDateToString } from './formatDateToString';
 export { default as checkInOutText } from './formatCheckInOutText';
 export { default as getNights } from './getNights';
+export { default as getDefaultSevenDayLater } from './getDefaultSevenDayLater';

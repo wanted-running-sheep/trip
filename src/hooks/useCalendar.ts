@@ -15,18 +15,13 @@ import {
 } from 'date-fns';
 import { searchFilterState } from '@/recoil/atoms';
 import { useRecoilValue } from 'recoil';
-import { formatDateToString } from '@/utils';
+import { formatDateToString, getDefaultSevenDayLater } from '@/utils';
 import { DateFormatEnum } from '@/types/enum';
 
 const useCalendar = () => {
-  const WEEK = 7;
   const [dates, setDates] = useState<CalendarDatesInterface[]>([]);
   const { checkIn, checkOut, isInitCheckInOut, activeMonth } =
     useRecoilValue(searchFilterState);
-
-  const getDefaultSevenDayLater = (next = 0) => {
-    return formatDateToString(addDays(new Date(), WEEK + next));
-  };
 
   const getDates = () => {
     const startOfTheSelectedMonth = startOfMonth(activeMonth);

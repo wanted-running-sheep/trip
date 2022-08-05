@@ -27,4 +27,12 @@ declare module 'request' {
     searchQueryInterface,
     'currentPage'
   >;
+
+  interface ReservedHotelInterface {
+    hotel_name: string;
+    checkIn: string;
+    checkOut: string;
+    adults: number;
+    children: number;
+  }
 }

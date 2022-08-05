@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { getHotelImage } from '@/utils';
-import { SkeletonItem } from '@/components';
 
+import useReservation from '@/hooks/useReservation';
+import { RESERVATION_BUTTON_LABEL } from '@/constants';
+
+import { SkeletonItem } from '@/components';
 interface HotelNameProps {
   hotelName: string;
   minGuest: number;
@@ -12,6 +15,7 @@ interface HotelNameProps {
 
 const HotelCard = ({ hotelName, minGuest, maxGuest }: HotelNameProps) => {
   const [isLoading, setIsLoading] = useState(true);
+  const { isReserved, saveReservation } = useReservation(hotelName);
 
   useEffect(() => {
     loadImage();
@@ -24,6 +28,14 @@ const HotelCard = ({ hotelName, minGuest, maxGuest }: HotelNameProps) => {
       setIsLoading(false);
     };
   };
+
+  const handleReservationButtonClick = () => {
+    saveReservation(hotelName);
+  };
+
+  const buttonText = isReserved
+    ? RESERVATION_BUTTON_LABEL.DISABLED
+    : RESERVATION_BUTTON_LABEL.ENABLED;
 
   if (isLoading) {
     return <SkeletonItem />;
@@ -41,7 +53,13 @@ const HotelCard = ({ hotelName, minGuest, maxGuest }: HotelNameProps) => {
           <P>최대투숙인원: {maxGuest}인</P>
         </div>
         <ButtonWrapper>
-          <Button>예약</Button>
+          <Button
+            onClick={handleReservationButtonClick}
+            isReserved={isReserved}
+            disabled={isReserved}
+          >
+            {buttonText}
+          </Button>
         </ButtonWrapper>
       </InfoArea>
     </Wrapper>
@@ -90,11 +108,22 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Button = styled.button`
-  border: 2px solid red;
+const buttonStyleForReservation = css`
+  border-color: ${({ theme }) => theme.color.border.lightgray};
+  color: ${({ theme }) => theme.color.button.gray};
+  cursor: default;
+`;
+
+const Button = styled.button<{ isReserved: boolean }>`
+  border: 2px solid ${({ theme }) => theme.color.border.red};
   color: ${({ theme }) => theme.color.button.red};
   background-color: ${({ theme }) => theme.color.button.white};
   border-radius: 20px;
   padding: 6px 20px;
-  min-width: 76px;
+  min-width: 91px;
+  ${({ isReserved }) => {
+    if (isReserved) {
+      return buttonStyleForReservation;
+    }
+  }}
 `;
