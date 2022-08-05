@@ -12,11 +12,11 @@ interface BodyProps {
 const Body = ({ dates, onClickDate, isInitCheckInOut }: BodyProps) => {
   return (
     <DateWrapper>
-      <WeekNmaesWrapper>
+      <WeekNamesWrapper>
         {WEEK_NAMES.map((day) => (
           <WeekNmaesContainer key={day}>{day}</WeekNmaesContainer>
         ))}
-      </WeekNmaesWrapper>
+      </WeekNamesWrapper>
       <WeekContainer>
         {dates.map(
           (
@@ -85,7 +85,7 @@ interface WeekItemContainerProps {
 const DateWrapper = styled.div`
   padding-top: 20px;
 `;
-const WeekNmaesWrapper = styled.div`
+const WeekNamesWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;

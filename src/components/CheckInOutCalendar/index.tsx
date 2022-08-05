@@ -11,10 +11,10 @@ const CalendarInput = () => {
     useRecoilValue(searchFilterState);
   const [showCalendar, setShowCalendar] = useState(false);
   const { formatChecInText, formatCheckOutText } = checkInOutText;
-  const wrpperRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const onClickCalendarOutside = (event: MouseEvent) => {
-    if (!wrpperRef.current?.contains(event.target as Node)) {
+    if (!wrapperRef.current?.contains(event.target as Node)) {
       setShowCalendar((prev) => {
         return prev && false;
       });
@@ -33,7 +33,7 @@ const CalendarInput = () => {
   }, []);
 
   return (
-    <Wrapper ref={wrpperRef}>
+    <Wrapper ref={wrapperRef}>
       <Container onClick={() => setShowCalendar((prev) => !prev)}>
         <CalendarIcon />
         <CheckInOutContainer>
