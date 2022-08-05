@@ -17,6 +17,13 @@ declare module 'request' {
     };
   }
 
+  interface ReservedHotelInterface {
+    checkIn: string;
+    checkOut: string;
+    adults: number;
+    children: number;
+  }
+
   interface searchQueryInterface {
     keyword: string;
     guests: number;
