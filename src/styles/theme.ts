@@ -32,6 +32,7 @@ const color = {
   button: {
     white: '#FFFFFF',
     red: '#D95763',
+    fluorescentred: '#FF375C',
     gray: '#9FA1A6',
   },
   spinner: {

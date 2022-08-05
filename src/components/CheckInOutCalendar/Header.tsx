@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import LeftDirection from '@/assets/icons/LeftDirection';
-import RightDirection from '@/assets/icons/RightDirection';
 import { format } from 'date-fns';
+import styled from 'styled-components';
+import { LeftDirection, RightDirection } from '@/assets/icons';
 import { DateFormatEnum } from '@/types/enum';
 
 interface HeaderProps {

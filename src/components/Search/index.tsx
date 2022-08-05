@@ -89,9 +89,10 @@ const Wrapper = styled.div`
   margin-bottom: 30px;
 
   & > button {
-    background: ${({ theme }) => theme.color.button.red};
+    background: ${({ theme }) => theme.color.button.fluorescentred};
     color: ${({ theme }) => theme.color.font.white};
     width: 50px;
+    border-radius: 0px 7px 7px 0;
 
     ${({ theme }) => theme.media.tablet`
       width: 100%;
@@ -105,16 +106,16 @@ const Wrapper = styled.div`
   `}
 `;
 const Container = styled.div`
-  ${({ theme }) => theme.mixins.flexBox()};
+  ${({ theme }) => theme.mixins.flexBox('center', '')};
   flex-grow: 1;
   height: 100%;
-  padding: 10px 7px;
   cursor: pointer;
   border-top: 1px solid ${({ theme }) => theme.color.border.gray};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.gray};
   border-right: 1px solid ${({ theme }) => theme.color.border.gray};
 
   &:first-child {
+    border-radius: 7px 0 0 7px;
     border: 1px solid ${({ theme }) => theme.color.border.gray};
   }
   &:hover {
@@ -122,10 +123,11 @@ const Container = styled.div`
   }
 
   svg {
-    margin-right: 10px;
+    margin: 0 10px;
   }
 
   ${({ theme }) => theme.media.tablet`
+  padding: 10px 10px;
     margin-bottom: 10px;
     border-left: 1px solid ${theme.color.border.gray};
   `}
