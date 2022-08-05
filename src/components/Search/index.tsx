@@ -1,12 +1,20 @@
 import React, { useRef, useReducer } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 
 import { Search as SearchIcon } from '@/assets/icons';
-import { SearchInput, GuestCountInput, CheckInOutCalendar } from '@/components';
+import {
+  SearchInput,
+  GuestCountInput,
+  CheckInOutCalendar,
+  Calendar,
+  GuestModal,
+} from '@/components';
 import { searchFilterState, toggleSearchClickState } from '@/recoil/atoms';
 import { CounterEnum } from '@/types/enum';
 import { GuestActionType, GuestStateType } from '@/types/guest';
+import { useMediaQuery } from 'react-responsive';
+import { sizes } from '@/styles/media';
 
 const initialState = { adults: 2, children: 0 };
 const guestReducer = (state: GuestStateType, action: GuestActionType) => {
@@ -31,6 +39,7 @@ const Search = () => {
   const [guestState, dispatch] = useReducer(guestReducer, initialState);
   const setSearchFilter = useSetRecoilState(searchFilterState);
   const setToggleSearchClick = useSetRecoilState(toggleSearchClickState);
+  const isTablet = useMediaQuery({ maxWidth: sizes.tablet });
 
   const searchByFilter = () => {
     const keyword = inputRef.current?.value;
@@ -53,9 +62,19 @@ const Search = () => {
       <Container>
         <CheckInOutCalendar />
       </Container>
+      {isTablet && (
+        <CalendarWrapper>
+          <Calendar />
+        </CalendarWrapper>
+      )}
       <Container>
         <GuestCountInput guestState={guestState} dispatch={dispatch} />
       </Container>
+      {isTablet && (
+        <ModalWrapper>
+          <GuestModal guestState={guestState} dispatch={dispatch} />
+        </ModalWrapper>
+      )}
       <button onClick={searchByFilter}>
         <SearchIcon color={'#ffffff'} />
       </button>
@@ -73,7 +92,17 @@ const Wrapper = styled.div`
     background: ${({ theme }) => theme.color.button.red};
     color: ${({ theme }) => theme.color.font.white};
     width: 50px;
+
+    ${({ theme }) => theme.media.tablet`
+      width: 100%;
+      padding: 8px 0;
+    `}
   }
+
+  ${({ theme }) => theme.media.tablet`
+    flex-direction: column;
+    height: 100%;
+  `}
 `;
 const Container = styled.div`
   ${({ theme }) => theme.mixins.flexBox()};
@@ -95,4 +124,18 @@ const Container = styled.div`
   svg {
     margin-right: 10px;
   }
+
+  ${({ theme }) => theme.media.tablet`
+    margin-bottom: 10px;
+    border-left: 1px solid ${theme.color.border.gray};
+  `}
+`;
+
+const CalendarWrapper = styled.div`
+  padding: 0 2px;
+  margin-bottom: 20px;
+`;
+
+const ModalWrapper = styled.div`
+  margin-bottom: 20px;
 `;

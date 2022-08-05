@@ -14,6 +14,7 @@ export default Spinner;
 
 const SpinnerOverlay = styled.div`
   width: 100%;
+  margin-top: 10px;
   ${({ theme }) => theme.mixins.flexBox()}
 `;
 

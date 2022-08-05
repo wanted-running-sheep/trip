@@ -6,12 +6,16 @@ import { useRecoilValue } from 'recoil';
 import { searchFilterState } from '@/recoil/atoms';
 import { checkInOutText, getNights } from '@/utils';
 
+import { useMediaQuery } from 'react-responsive';
+import { sizes } from '@/styles/media';
+
 const CalendarInput = () => {
   const { checkIn, checkOut, isInitCheckInOut } =
     useRecoilValue(searchFilterState);
   const [showCalendar, setShowCalendar] = useState(false);
   const { formatChecInText, formatCheckOutText } = checkInOutText;
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const isTablet = useMediaQuery({ maxWidth: sizes.tablet });
 
   const onClickCalendarOutside = (event: MouseEvent) => {
     if (!wrapperRef.current?.contains(event.target as Node)) {
@@ -48,7 +52,7 @@ const CalendarInput = () => {
           </CheckInOutItem>
         </CheckInOutContainer>
       </Container>
-      {showCalendar && <Calendar />}
+      {showCalendar && !isTablet && <Calendar />}
     </Wrapper>
   );
 };
