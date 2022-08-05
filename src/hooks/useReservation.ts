@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { searchFilterState } from '@/recoil/atoms';
 
 import { SearchFilterInterface } from 'request';
+import { areIntervalsOverlapping } from 'date-fns';
 
 const useReservation = (hotelName: string) => {
   const [isReserved, setIsReserved] = useState<boolean>(false);
@@ -17,10 +18,8 @@ const useReservation = (hotelName: string) => {
     if (!reservedData) {
       return setIsReserved(false);
     }
-    for (let data of reservedData) {
-      const savedCheckIn = getNumberDate(data.checkIn);
-      const savedCheckOut = getNumberDate(data.checkOut);
-      if (isDateBetweenReservation(savedCheckIn, savedCheckOut)) {
+    for (let { checkIn, checkOut } of reservedData) {
+      if (isDateBetweenReservation(checkIn, checkOut)) {
         setIsReserved(true);
         break;
       }
@@ -28,23 +27,16 @@ const useReservation = (hotelName: string) => {
   };
 
   const isDateBetweenReservation = (
-    savedCheckIn: number,
-    savedCheckOut: number
+    savedCheckIn: string,
+    savedCheckOut: string
   ) => {
-    const checkIn = getNumberDate(searchFilter.checkIn);
-    const checkOut = getNumberDate(searchFilter.checkOut);
-    if (
-      (checkIn >= savedCheckIn && checkIn < savedCheckOut) ||
-      (checkOut > savedCheckIn && checkOut <= savedCheckOut) ||
-      (checkIn <= savedCheckIn && checkOut >= savedCheckOut)
-    ) {
-      return true;
-    }
-    return false;
-  };
+    const checkIn = searchFilter.checkIn;
+    const checkOut = searchFilter.checkOut;
 
-  const getNumberDate = (date: string) => {
-    return Number(date.split('-').join(''));
+    return areIntervalsOverlapping(
+      { start: new Date(savedCheckIn), end: new Date(savedCheckOut) },
+      { start: new Date(checkIn), end: new Date(checkOut) }
+    );
   };
 
   const saveReservation = (hotelName: string) => {
