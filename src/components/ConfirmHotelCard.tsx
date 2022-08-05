@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { getHotelImage } from '@/utils';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { reservedHotelState } from '@/recoil/atoms';
 import SkeletonItem from './Skeleton/SkeletonItem';
 import { ReservedHotelInterface } from 'request';
 
-interface HotelCardReservedProps {
+interface ConfirmHotelCardProps {
   hotelName: string;
   checkIn: string;
   checkOut: string;
   adults: number;
   childrenParam: number;
+  removeTest: ({ hotelName, checkIn, checkOut }: any) => void;
 }
 
-const HotelCardReserved = ({
+const ConfirmHotelCard = ({
   hotelName,
   checkIn,
   checkOut,
   adults,
   childrenParam,
-}: HotelCardReservedProps) => {
+  removeTest,
+}: ConfirmHotelCardProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [reservedState, setReservedState] = useRecoilState(
-    reservedHotelState(hotelName)
-  );
 
   useEffect(() => {
     loadImage();
@@ -38,23 +37,10 @@ const HotelCardReserved = ({
     };
   };
 
-  useEffect(() => {
-    if (Array.isArray(reservedState)) {
-      if (JSON.parse(localStorage.getItem(hotelName) as string).length === 0) {
-        localStorage.removeItem(hotelName);
-      }
-    }
-  }, [reservedState]);
-
-  const cancelReservation = () => {
-    if (Array.isArray(reservedState)) {
-      setReservedState(
-        reservedState.filter((hotel) => hotel.checkIn !== checkIn)
-      );
-      return;
-    }
-    localStorage.removeItem(hotelName);
-  };
+  // useEffect(() => {
+  //   console.log(reservedState);
+  //   if (reservedState.length === 0) localStorage.removeItem(hotelName);
+  // }, [reservedState.length]);
 
   if (isLoading) {
     return <SkeletonItem />;
@@ -74,14 +60,16 @@ const HotelCardReserved = ({
           <P>아이: {childrenParam}</P>
         </div>
         <ButtonWrapper>
-          <Button onClick={() => cancelReservation()}>취소</Button>
+          <Button onClick={() => removeTest({ hotelName, checkIn, checkOut })}>
+            취소
+          </Button>
         </ButtonWrapper>
       </InfoArea>
     </Wrapper>
   );
 };
 
-export default HotelCardReserved;
+export default ConfirmHotelCard;
 
 const Wrapper = styled.div`
   margin-bottom: 10px;
