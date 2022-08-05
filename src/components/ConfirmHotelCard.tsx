@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getHotelImage } from '@/utils';
 import styled from 'styled-components';
+import { getHotelImage } from '@/utils';
 import SkeletonItem from './Skeleton/SkeletonItem';
 
 interface ConfirmHotelCardProps {
