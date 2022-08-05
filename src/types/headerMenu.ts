@@ -1,4 +1,4 @@
 export interface MenuItemsProps {
-  title: '예약하기' | '예약 확인';
+  title: '🏠 호텔 목록' | '📋 예약 확인';
   onClickLink: () => void;
 }

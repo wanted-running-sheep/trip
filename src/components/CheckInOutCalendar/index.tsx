@@ -36,17 +36,19 @@ const CalendarInput = () => {
     <Wrapper ref={wrpperRef}>
       <Container onClick={() => setShowCalendar((prev) => !prev)}>
         <CalendarIcon />
-        <CheckInOutContainer>
-          <CheckInOutItem>체크인</CheckInOutItem>
-          <CheckInOutItem>{formatChecInText(checkIn)}</CheckInOutItem>
-        </CheckInOutContainer>
-        <NightsContainer>{getNights(checkIn, checkOut)}박</NightsContainer>
-        <CheckInOutContainer>
-          <CheckInOutItem>체크아웃</CheckInOutItem>
-          <CheckInOutItem>
-            {formatCheckOutText(checkOut, isInitCheckInOut)}
-          </CheckInOutItem>
-        </CheckInOutContainer>
+        <Test>
+          <CheckInOutContainer>
+            <CheckInOutItem>체크인</CheckInOutItem>
+            <CheckInOutItem>{formatChecInText(checkIn)}</CheckInOutItem>
+          </CheckInOutContainer>
+          <NightsContainer>{getNights(checkIn, checkOut)}박</NightsContainer>
+          <CheckInOutContainer>
+            <CheckInOutItem>체크아웃</CheckInOutItem>
+            <CheckInOutItem>
+              {formatCheckOutText(checkOut, isInitCheckInOut)}
+            </CheckInOutItem>
+          </CheckInOutContainer>
+        </Test>
       </Container>
       {showCalendar && <Calendar />}
     </Wrapper>
@@ -56,25 +58,25 @@ const CalendarInput = () => {
 export default CalendarInput;
 
 const Wrapper = styled.div`
-  width: 280px;
+  width: 100%;
   height: 100%;
-  display: flex;
   position: relative;
   cursor: pointer;
 `;
-
 const Container = styled.div`
+  ${({ theme }) => theme.mixins.flexBox('center')}
   position: relative;
   flex: 1 1 0;
   height: 100%;
-  display: flex;
 `;
-
+const Test = styled.div`
+  width: 100%;
+  ${({ theme }) => theme.mixins.flexBox('center', 'space-between')}
+`;
 const CheckInOutContainer = styled.div`
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  align-items: center;
   padding-right: 15px;
 
   &:last-child {
@@ -86,9 +88,8 @@ const CheckInOutContainer = styled.div`
 const CheckInOutItem = styled.p`
   &:first-child {
     font-size: 0.8rem;
-    font-weight: 500;
-    line-height: 18px;
-    color: ${({ theme }) => theme.color.font.darkgray};
+    line-height: 17px;
+    color: ${({ theme }) => theme.color.font.gray};
   }
 
   &:last-child {

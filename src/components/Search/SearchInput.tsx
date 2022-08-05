@@ -20,6 +20,6 @@ SearchInput.displayName = 'SearchInput';
 export default SearchInput;
 
 const Input = styled.input`
-  width: 250px;
+  width: 280px;
   font-size: 0.9rem;
 `;

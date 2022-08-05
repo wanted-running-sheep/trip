@@ -67,25 +67,26 @@ export default Search;
 const Wrapper = styled.div`
   display: flex;
   height: 55px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   & > button {
-    background: ${({ theme }) => theme.color.button.red};
+    background: ${({ theme }) => theme.color.button.fluorescentred};
     color: ${({ theme }) => theme.color.font.white};
-    width: 50px;
+    width: 60px;
+    border-radius: 0px 7px 7px 0;
   }
 `;
 const Container = styled.div`
-  ${({ theme }) => theme.mixins.flexBox()};
+  ${({ theme }) => theme.mixins.flexBox('center', '')};
   flex-grow: 1;
   height: 100%;
-  padding: 10px 7px;
   cursor: pointer;
   border-top: 1px solid ${({ theme }) => theme.color.border.gray};
   border-bottom: 1px solid ${({ theme }) => theme.color.border.gray};
   border-right: 1px solid ${({ theme }) => theme.color.border.gray};
 
   &:first-child {
+    border-radius: 7px 0 0 7px;
     border: 1px solid ${({ theme }) => theme.color.border.gray};
   }
   &:hover {
@@ -93,6 +94,6 @@ const Container = styled.div`
   }
 
   svg {
-    margin-right: 10px;
+    margin: 0 10px;
   }
 `;

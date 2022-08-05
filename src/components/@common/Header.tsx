@@ -13,11 +13,11 @@ const Header = () => {
 
   const menuItems: MenuItemsProps[] = [
     {
-      title: '예약하기',
+      title: '🏠 호텔 목록',
       onClickLink: () => navigate(NavigateEnum.MAIN),
     },
     {
-      title: '예약 확인',
+      title: '📋 예약 확인',
       onClickLink: () => navigate(NavigateEnum.CONFIRM),
     },
   ];
@@ -28,26 +28,28 @@ const Header = () => {
 
   return (
     <HeaderInner>
-      <Logo onClick={() => navigate('/')} />
-      <MenuList>
-        {menuItems.map((menuItem, index) => (
-          <Item key={index} onClick={menuItem.onClickLink}>
-            {menuItem.title}
-          </Item>
-        ))}
-      </MenuList>
-      <MobileMenuList onClick={onToggleMenu}>
-        <Menu />
-        {isMountedMenu && (
-          <List>
-            {menuItems.map((menuItem, index) => (
-              <Item key={index} onClick={menuItem.onClickLink}>
-                {menuItem.title}
-              </Item>
-            ))}
-          </List>
-        )}
-      </MobileMenuList>
+      <Wrapper>
+        <Logo onClick={() => navigate('/')} />
+        <MenuList>
+          {menuItems.map((menuItem, index) => (
+            <Item key={index} onClick={menuItem.onClickLink}>
+              {menuItem.title}
+            </Item>
+          ))}
+        </MenuList>
+        <MobileMenuList onClick={onToggleMenu}>
+          <Menu />
+          {isMountedMenu && (
+            <List>
+              {menuItems.map((menuItem, index) => (
+                <Item key={index} onClick={menuItem.onClickLink}>
+                  {menuItem.title}
+                </Item>
+              ))}
+            </List>
+          )}
+        </MobileMenuList>
+      </Wrapper>
     </HeaderInner>
   );
 };
@@ -55,19 +57,33 @@ const Header = () => {
 export default Header;
 
 const HeaderInner = styled.div`
-  width: 100%;
-  height: 80px;
+  background: ${({ theme }) => theme.color.background.white};
+  ${({ theme }) => theme.mixins.boxShadow(0.03)};
   ${({ theme }) => theme.mixins.flexBox('center', 'space-between')};
-  padding: 0 30px;
+  width: 100vw;
+  height: 80px;
+  margin-bottom: 30px;
+
   h2 {
     font-size: 24px;
     font-weight: bold;
   }
 `;
+const Wrapper = styled.div`
+  ${({ theme }) => theme.mixins.flexBox('center', 'space-between')};
+  padding: 0 30px;
+  box-sizing: border-box;
+  width: 976px;
+  margin: 0 auto;
+
+  ${({ theme }) => theme.media.mobile`
+    padding: 0 15px;
+  `}
+`;
 
 const Logo = styled.a`
-  max-width: 125px;
-  width: 100%;
+  /* width: 100%; */
+  width: 120px;
   height: 31px;
   background: url(${LOGO_URL}) center center / contain no-repeat;
   cursor: pointer;
@@ -84,7 +100,7 @@ const Item = styled.div`
   width: 100px;
   height: 30px;
   line-height: 30px;
-  font-size: 18px;
+  font-size: 14px;
   text-align: center;
   cursor: pointer;
   &:first-child {

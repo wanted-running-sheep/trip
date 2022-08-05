@@ -19,11 +19,10 @@ export default Layout;
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 976px;
-  margin: 0 auto;
 `;
 
 const Main = styled.main`
-  width: 100%;
+  max-width: 976px;
+  margin: 0 auto;
   height: calc(100% - 80px);
 `;
