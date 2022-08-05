@@ -76,7 +76,7 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.color.border.lightgray};
   border-radius: 5px;
   display: flex;
-
+  width: 100%;
   &:hover {
     ${({ theme }) => theme.mixins.boxShadow(0.3)}
   }
@@ -90,6 +90,10 @@ const ImgWrapper = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 5px 0 0 5px;
+
+    ${({ theme }) => theme.media.mobile`
+      width: 120px;
+    `}
   }
 `;
 
@@ -98,6 +102,12 @@ const InfoArea = styled.div`
   padding: 20px;
 
   ${({ theme }) => theme.mixins.flexBox('', 'space-between')}
+
+  ${({ theme }) => theme.media.mobile`
+    width: calc(100% - 120px);
+    ${theme.mixins.flexBox('right', 'space-between')};
+    flex-direction: column;
+  `}
 `;
 
 const RoundedTag = styled.p`
@@ -111,7 +121,14 @@ const RoundedTag = styled.p`
 const H2 = styled.h2`
   font-size: 1.4rem;
   font-weight: 900;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  ${({ theme }) => theme.media.mobile`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    word-break: break-all;
+  `}
 `;
 const P = styled.p`
   ${({ theme }) => theme.mixins.flexBox('center', '')}
@@ -126,6 +143,9 @@ const P = styled.p`
 const ButtonWrapper = styled.div`
   ${({ theme }) => theme.mixins.flexBox('center', 'flex-end')}
   flex-direction: column;
+  ${({ theme }) => theme.media.mobile`
+    ${theme.mixins.flexBox('flex-end', 'right')}
+  `}
 `;
 
 const buttonStyleForReservation = css`

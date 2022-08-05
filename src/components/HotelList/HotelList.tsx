@@ -50,6 +50,11 @@ const HotelList = () => {
           ))
         )}
       </ul>
+      {!hotelList.length && (
+        <ResutMessageWrapper>
+          <h3>검색 결과가 없습니다</h3>
+        </ResutMessageWrapper>
+      )}
       {isLoading && <Spinner />}
       <div ref={loaderRef}></div>
     </Wrapper>
@@ -65,4 +70,11 @@ const Wrapper = styled.div`
 
 const Li = styled.li`
   list-style: none;
+  width: 100%;
+`;
+
+const ResutMessageWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
 `;
