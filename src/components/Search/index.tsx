@@ -1,6 +1,6 @@
 import React, { useRef, useReducer } from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { Search as SearchIcon } from '@/assets/icons';
 import { SearchInput, GuestCountInput } from '@/components';
@@ -29,13 +29,17 @@ const guestReducer = (state: GuestStateType, action: GuestActionType) => {
 const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [guestState, dispatch] = useReducer(guestReducer, initialState);
-  const [searchFilter, setSearchFilter] = useRecoilState(searchFilterState);
+  const setSearchFilter = useSetRecoilState(searchFilterState);
 
   const searchByFilter = () => {
     const keyword = inputRef.current?.value;
 
     if (keyword !== undefined)
-      setSearchFilter({ ...searchFilter, ...guestState, keyword });
+      setSearchFilter((prevFilter) => ({
+        ...prevFilter,
+        ...guestState,
+        keyword,
+      }));
   };
 
   return (

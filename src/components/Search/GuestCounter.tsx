@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CounterEnum, PeopleEnum, PeopleType } from '@/types/enum';
 import { GuestActionType } from '@/types/guest';
 
-const couterRule = {
+const counterRule = {
   adults: {
     min: 1,
     max: 8,
@@ -25,14 +25,14 @@ const GuestCounter = ({ count, dispatch, name }: GuestCounterType) => {
       <div>
         <CounterButton
           onClick={() => dispatch({ type: CounterEnum.DECREMENT, name })}
-          disabled={count <= couterRule[name].min}
+          disabled={count <= counterRule[name].min}
         >
           -
         </CounterButton>
-        <CountText maxFlag={count >= couterRule[name].max}>{count}</CountText>
+        <CountText maxFlag={count >= counterRule[name].max}>{count}</CountText>
         <CounterButton
           onClick={() => dispatch({ type: CounterEnum.INCREMENT, name })}
-          disabled={count >= couterRule[name].max}
+          disabled={count >= counterRule[name].max}
         >
           +
         </CounterButton>
