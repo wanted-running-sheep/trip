@@ -2,10 +2,14 @@ import React, { useState, useReducer } from 'react';
 import styled from 'styled-components';
 
 import { Person } from '@/assets/icons';
-import { GuestCounter } from '@/components';
+import { GuestModal } from '@/components';
+
+import { useMediaQuery } from 'react-responsive';
+import { sizes } from '@/styles/media';
 
 const GuestCountInput = ({ guestState, dispatch }: any) => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+  const isTablet = useMediaQuery({ maxWidth: sizes.tablet });
 
   return (
     <>
@@ -15,20 +19,8 @@ const GuestCountInput = ({ guestState, dispatch }: any) => {
         <h1 onClick={() => setIsOpenAddModal(!isOpenAddModal)}>
           객실 1, 인원 {guestState.adults + guestState.children}
         </h1>
-        {isOpenAddModal && (
-          <Modal>
-            <h1>객실</h1>
-            <GuestCounter
-              count={guestState.adults}
-              dispatch={dispatch}
-              name="adults"
-            />
-            <GuestCounter
-              count={guestState.children}
-              dispatch={dispatch}
-              name="children"
-            />
-          </Modal>
+        {isOpenAddModal && !isTablet && (
+          <GuestModal guestState={guestState} dispatch={dispatch} />
         )}
       </Content>
     </>

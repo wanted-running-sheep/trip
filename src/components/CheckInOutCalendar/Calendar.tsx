@@ -90,6 +90,11 @@ const Wrapper = styled.div`
   z-index: 2;
   ${({ theme }) => theme.mixins.boxShadow()};
   background-color: ${({ theme }) => theme.color.background.white};
+
+  ${({ theme }) => theme.media.tablet`
+    position: static;
+    width: 100%;
+  `}
 `;
 
 const CalendarWrapper = styled.div`

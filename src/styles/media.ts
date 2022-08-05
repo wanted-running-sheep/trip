@@ -6,7 +6,7 @@ type MediaQueryProps = {
   desktop: number;
 };
 
-const sizes: MediaQueryProps = {
+export const sizes: MediaQueryProps = {
   mobile: 480,
   tablet: 976,
   desktop: 1284,

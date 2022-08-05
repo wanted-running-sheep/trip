@@ -22,4 +22,8 @@ export default SearchInput;
 const Input = styled.input`
   width: 250px;
   font-size: 0.9rem;
+
+  ${({ theme }) => theme.media.tablet`
+    width: 100%;
+  `}
 `;
