@@ -60,7 +60,7 @@ const HeaderInner = styled.div`
   background: ${({ theme }) => theme.color.background.white};
   ${({ theme }) => theme.mixins.boxShadow(0.03)};
   ${({ theme }) => theme.mixins.flexBox('center', 'space-between')};
-  width: 100vw;
+  width: 100%;
   height: 80px;
   margin-bottom: 30px;
 

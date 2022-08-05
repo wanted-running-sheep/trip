@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { reservedHotelState } from '@/recoil/atoms';
 import SkeletonItem from './Skeleton/SkeletonItem';
 import { ReservedHotelInterface } from 'request';
+import { Calendar, People } from '@/assets/icons';
 
 interface ConfirmHotelCardProps {
   hotelName: string;
@@ -49,15 +50,20 @@ const ConfirmHotelCard = ({
   return (
     <Wrapper>
       <ImgWrapper>
-        <Img alt="hotel-image" src={getHotelImage(hotelName)} />
+        <img alt="hotel-image" src={getHotelImage(hotelName)} />
       </ImgWrapper>
       <InfoArea>
         <div>
           <H2>{hotelName}</H2>
-          <P>체크인: {checkIn}</P>
-          <P>체크아웃: {checkOut}</P>
-          <P>어른: {adults}</P>
-          <P>아이: {childrenParam}</P>
+          <P style={{ marginBottom: '15px' }}>부산광역시 부산진구 서면로 20</P>
+          <P>
+            <Calendar color="#BABABA" /> {checkIn}{' '}
+            {checkIn !== checkOut && `~ ${checkOut}`}
+          </P>
+          <P>
+            <People /> 어른: {adults}
+            {childrenParam > 0 && ` / 아이: ${childrenParam}`}
+          </P>
         </div>
         <ButtonWrapper>
           <Button onClick={() => removeTest({ hotelName, checkIn, checkOut })}>
@@ -72,21 +78,26 @@ const ConfirmHotelCard = ({
 export default ConfirmHotelCard;
 
 const Wrapper = styled.div`
-  margin-bottom: 10px;
+  ${({ theme }) => theme.mixins.boxShadow(0.03)}
+  margin-top: 10px;
   border: 1px solid ${({ theme }) => theme.color.border.lightgray};
-  border-radius: 4px;
-  ${({ theme }) => theme.mixins.boxShadow()}
+  border-radius: 5px;
   display: flex;
+
+  &:hover {
+    ${({ theme }) => theme.mixins.boxShadow(0.3)}
+  }
 `;
 
 const ImgWrapper = styled.div`
   height: 215px;
-`;
 
-const Img = styled.img`
-  width: 164px;
-  height: 215px;
-  object-fit: cover;
+  img {
+    width: 164px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px 0 0 5px;
+  }
 `;
 
 const InfoArea = styled.div`
@@ -95,27 +106,31 @@ const InfoArea = styled.div`
 
   ${({ theme }) => theme.mixins.flexBox('', 'space-between')}
 `;
-
 const H2 = styled.h2`
   font-size: 1.4rem;
   font-weight: 900;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 `;
-
 const P = styled.p`
-  margin-bottom: 10px;
+  ${({ theme }) => theme.mixins.flexBox('center', '')}
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+
+  svg {
+    margin-right: 7px;
+    width: 15px;
+    height: 15px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   ${({ theme }) => theme.mixins.flexBox('center', 'flex-end')}
   flex-direction: column;
 `;
-
 const Button = styled.button`
-  border: 2px solid red;
-  color: ${({ theme }) => theme.color.button.red};
-  background-color: ${({ theme }) => theme.color.button.white};
+  background-color: ${({ theme }) => theme.color.background.red};
+  color: ${({ theme }) => theme.color.font.white};
   border-radius: 20px;
-  padding: 6px 20px;
-  min-width: 76px;
+  padding: 7px 20px;
+  min-width: 91px;
 `;

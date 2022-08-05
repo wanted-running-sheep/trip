@@ -67,7 +67,7 @@ export default Search;
 const Wrapper = styled.div`
   display: flex;
   height: 55px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 
   & > button {
     background: ${({ theme }) => theme.color.button.fluorescentred};
