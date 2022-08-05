@@ -77,4 +77,5 @@ const ResutMessageWrapper = styled.div`
   width: 100%;
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 50px;
 `;
