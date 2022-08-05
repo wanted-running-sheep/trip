@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import '@/assets/css/font.css';
 
 const GlobalStyles = createGlobalStyle`
  ${reset}
@@ -10,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
  }
  #root, html, body {
    height: 100%;
+   font-family: 'Noto Sans KR', sans-serif;
  }
  h1 {
    font-weight: 700;
