@@ -24,6 +24,15 @@ declare module 'request' {
     children: number;
   }
 
+  interface ReservedHotelAddNameInterface extends ReservedHotelInterface {
+    hotelName: string;
+  }
+
+  type removeReservationType = Pick<
+    ReservedHotelAddNameInterface,
+    'hotelName' | 'checkIn' | 'checkOut'
+  >;
+
   interface searchQueryInterface {
     keyword: string;
     guests: number;
@@ -34,12 +43,4 @@ declare module 'request' {
     searchQueryInterface,
     'currentPage'
   >;
-
-  interface ReservedHotelInterface {
-    hotel_name: string;
-    checkIn: string;
-    checkOut: string;
-    adults: number;
-    children: number;
-  }
 }
