@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getHotelImage } from '@/utils';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { reservedHotelState } from '@/recoil/atoms';
 import SkeletonItem from './Skeleton/SkeletonItem';
-import { ReservedHotelInterface } from 'request';
 
 interface ConfirmHotelCardProps {
   hotelName: string;
@@ -12,7 +9,7 @@ interface ConfirmHotelCardProps {
   checkOut: string;
   adults: number;
   childrenParam: number;
-  removeTest: ({ hotelName, checkIn, checkOut }: any) => void;
+  removeReservation: ({ hotelName, checkIn, checkOut }: any) => void;
 }
 
 const ConfirmHotelCard = ({
@@ -21,7 +18,7 @@ const ConfirmHotelCard = ({
   checkOut,
   adults,
   childrenParam,
-  removeTest,
+  removeReservation,
 }: ConfirmHotelCardProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,11 +33,6 @@ const ConfirmHotelCard = ({
       setIsLoading(false);
     };
   };
-
-  // useEffect(() => {
-  //   console.log(reservedState);
-  //   if (reservedState.length === 0) localStorage.removeItem(hotelName);
-  // }, [reservedState.length]);
 
   if (isLoading) {
     return <SkeletonItem />;
@@ -60,7 +52,9 @@ const ConfirmHotelCard = ({
           <P>아이: {childrenParam}</P>
         </div>
         <ButtonWrapper>
-          <Button onClick={() => removeTest({ hotelName, checkIn, checkOut })}>
+          <Button
+            onClick={() => removeReservation({ hotelName, checkIn, checkOut })}
+          >
             취소
           </Button>
         </ButtonWrapper>

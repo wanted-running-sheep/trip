@@ -24,6 +24,10 @@ declare module 'request' {
     children: number;
   }
 
+  interface ReservedHotelAddNameInterface extends ReservedHotelInterface {
+    hotelName: string;
+  }
+
   interface searchQueryInterface {
     keyword: string;
     guests: number;
