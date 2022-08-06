@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ConfirmHotelList from '@/components/ConfirmHotelList';
+import { ConfirmHotelList } from '@/components';
 
 const ConfirmPage = () => {
   return (

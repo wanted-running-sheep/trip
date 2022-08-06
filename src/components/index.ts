@@ -18,6 +18,10 @@ export { default as Calendar } from '@/components/CheckInOutCalendar/Calendar';
 export { default as HotelList } from '@/components/HotelList/HotelList';
 export { default as HotelCard } from '@/components/HotelList/HotelCard';
 
+// 예약된 호텔
+export { default as ConfirmHotelList } from '@/components/ConfirmHotelList/ConfirmHotelList';
+export { default as ConfirmHotelCard } from '@/components/ConfirmHotelList/ConfirmHotelCard';
+
 // 스켈레톤 UI
 export { default as Skeleton } from '@/components/Skeleton';
 export { default as SkeletonItem } from '@/components/Skeleton/SkeletonItem';

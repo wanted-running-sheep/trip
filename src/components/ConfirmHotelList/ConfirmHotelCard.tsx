@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getHotelImage } from '@/utils';
-import SkeletonItem from './Skeleton/SkeletonItem';
+import { SkeletonItem } from '@/components';
 import { removeReservationType } from 'request';
 import { Calendar, People } from '@/assets/icons';
 
